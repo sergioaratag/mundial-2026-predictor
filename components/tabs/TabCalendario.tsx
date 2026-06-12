@@ -60,7 +60,7 @@ export function TabCalendario() {
               onClick={() => setSelected(d)}
               className="shrink-0 px-3 py-1.5 rounded-full text-sm transition-colors"
               style={{
-                background: isSel ? "var(--gold)" : "var(--card)",
+                background: isSel ? "var(--gold)" : "var(--bg-card)",
                 color: isSel ? "#1a1206" : st === "today" ? "var(--gold)" : "var(--muted)",
                 border: `1px solid ${isSel ? "var(--gold)" : "var(--border)"}`,
                 fontWeight: isSel || st === "today" ? 600 : 400,
@@ -81,7 +81,7 @@ export function TabCalendario() {
           value={group}
           onChange={(e) => setGroup(e.target.value)}
           className="text-xs rounded-md px-2 py-1.5 outline-none"
-          style={{ background: "var(--card)", border: "1px solid var(--border)", color: "var(--text)" }}
+          style={{ background: "var(--bg-card)", border: "1px solid var(--border)", color: "var(--text)" }}
         >
           <option value="all">Todos los grupos</option>
           {groups.map((g) => (
@@ -102,7 +102,7 @@ export function TabCalendario() {
       ) : (
         <div
           className="rounded-lg px-4 py-8 text-center text-sm"
-          style={{ background: "var(--card)", border: "1px dashed var(--border)", color: "var(--muted)" }}
+          style={{ background: "var(--bg-card)", border: "1px dashed var(--border)", color: "var(--muted)" }}
         >
           No hay partidos para esta fecha con el filtro seleccionado.
         </div>

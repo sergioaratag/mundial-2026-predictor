@@ -5,8 +5,8 @@ import type { Confidence, Combo, PickMatch } from "@/lib/types";
 
 const CONF: Record<Confidence, { label: string; color: string; bg: string }> = {
   hot: { label: "🔥 Alta", color: "var(--gold)", bg: "rgba(216,178,90,0.15)" },
-  moderate: { label: "Media", color: "var(--blue)", bg: "rgba(75,123,236,0.15)" },
-  low: { label: "Baja", color: "var(--muted)", bg: "rgba(139,148,163,0.12)" },
+  moderate: { label: "Media", color: "var(--emerald)", bg: "rgba(0,197,102,0.14)" },
+  low: { label: "Baja", color: "var(--muted)", bg: "rgba(154,154,146,0.12)" },
 };
 
 export function TabPicks() {
@@ -17,13 +17,13 @@ export function TabPicks() {
   return (
     <div className="px-3 sm:px-6 py-5">
       {/* Chips de jornada */}
-      <div className="flex gap-2 overflow-x-auto mp-scroll pb-2 mb-4 -mx-1 px-1 sticky top-[49px] z-30" style={{ background: "var(--bg)" }}>
+      <div className="flex gap-2 overflow-x-auto mp-scroll pb-2 mb-4 -mx-1 px-1 sticky top-[49px] z-30" style={{ background: "var(--bg-primary)" }}>
         {PICKS.map((d) => (
           <button
             key={d.id}
             onClick={() => go(d.id)}
             className="shrink-0 px-3 py-1.5 rounded-full text-sm"
-            style={{ background: "var(--card)", border: "1px solid var(--border)", color: "var(--text)" }}
+            style={{ background: "var(--bg-card)", border: "1px solid var(--border)", color: "var(--text)" }}
           >
             Jornada {d.jornada}
           </button>
@@ -57,13 +57,13 @@ export function TabPicks() {
 
 function MatchPicks({ m }: { m: PickMatch }) {
   return (
-    <article className="rounded-xl overflow-hidden" style={{ background: "var(--card)", border: "1px solid var(--border)" }}>
+    <article className="rounded-xl overflow-hidden" style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
       {/* Cabecera del partido */}
-      <div className="px-4 py-3 flex flex-wrap items-center gap-x-3 gap-y-1" style={{ background: "var(--card-2)" }}>
+      <div className="px-4 py-3 flex flex-wrap items-center gap-x-3 gap-y-1" style={{ background: "var(--bg-panel)" }}>
         <span className="text-base font-semibold">
           {m.home_flag} {m.home} <span style={{ color: "var(--muted)" }}>vs</span> {m.away} {m.away_flag}
         </span>
-        <span className="text-xs px-1.5 py-0.5 rounded" style={{ background: "var(--bg)", color: "var(--muted)" }}>{m.group}</span>
+        <span className="text-xs px-1.5 py-0.5 rounded" style={{ background: "var(--bg-primary)", color: "var(--muted)" }}>{m.group}</span>
         <span className="text-xs ml-auto" style={{ color: "var(--gold)" }}>{m.time_bolivia} · hora Bolivia</span>
         <span className="text-xs w-full sm:w-auto" style={{ color: "var(--muted)" }}>{m.venue} · {m.city}</span>
       </div>
@@ -76,7 +76,7 @@ function MatchPicks({ m }: { m: PickMatch }) {
           {m.picks.map((p, i) => {
             const c = CONF[p.confidence];
             return (
-              <div key={i} className="rounded-lg p-3" style={{ background: "var(--bg)", border: "1px solid var(--border)" }}>
+              <div key={i} className="rounded-lg p-3" style={{ background: "var(--bg-primary)", border: "1px solid var(--border)" }}>
                 <div className="flex items-center justify-between gap-2 mb-1">
                   <span className="text-[11px] uppercase tracking-wide" style={{ color: "var(--muted)" }}>{p.market}</span>
                   <span className="text-[11px] px-1.5 py-0.5 rounded-full whitespace-nowrap" style={{ color: c.color, background: c.bg }}>{c.label}</span>
@@ -118,7 +118,7 @@ function ComboCard({ combo, highlight }: { combo: Combo; highlight?: boolean }) 
     <div
       className="rounded-lg p-3"
       style={{
-        background: highlight ? "rgba(216,178,90,0.10)" : "var(--bg)",
+        background: highlight ? "rgba(216,178,90,0.10)" : "var(--bg-primary)",
         border: `1px solid ${highlight ? "var(--gold)" : "var(--border)"}`,
       }}
     >

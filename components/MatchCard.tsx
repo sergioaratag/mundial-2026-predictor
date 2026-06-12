@@ -2,9 +2,9 @@ import type { CalendarMatch } from "@/lib/types";
 import { matchStatus, type MatchStatus } from "@/lib/dates";
 
 const STATUS_STYLE: Record<MatchStatus, { label: string; color: string; bg: string }> = {
-  today: { label: "Hoy", color: "var(--gold)", bg: "rgba(216,178,90,0.14)" },
-  upcoming: { label: "Próximo", color: "var(--blue)", bg: "rgba(75,123,236,0.14)" },
-  played: { label: "Jugado", color: "var(--muted)", bg: "rgba(139,148,163,0.12)" },
+  today: { label: "Hoy", color: "var(--red)", bg: "rgba(216,31,38,0.16)" },
+  upcoming: { label: "Próximo", color: "var(--emerald)", bg: "rgba(0,197,102,0.14)" },
+  played: { label: "Jugado", color: "var(--muted)", bg: "rgba(154,154,146,0.12)" },
 };
 
 export function StatusBadge({ date }: { date: string }) {
@@ -24,7 +24,7 @@ export function MatchRow({ m }: { m: CalendarMatch }) {
   return (
     <div
       className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 px-3 py-2.5 rounded-lg"
-      style={{ background: "var(--card)", border: "1px solid var(--border)" }}
+      style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}
     >
       <div className="flex items-center gap-2 sm:w-16 shrink-0">
         <span className="font-mono text-sm" style={{ color: "var(--gold)" }}>{m.time_et}</span>
@@ -39,7 +39,7 @@ export function MatchRow({ m }: { m: CalendarMatch }) {
       </div>
 
       <div className="flex items-center gap-2 sm:gap-3 text-xs" style={{ color: "var(--muted)" }}>
-        <span className="px-1.5 py-0.5 rounded" style={{ background: "var(--card-2)" }}>{m.group}</span>
+        <span className="px-1.5 py-0.5 rounded" style={{ background: "var(--bg-panel)" }}>{m.group}</span>
         <span className="truncate max-w-[180px] hidden sm:inline">{m.venue} · {m.city}</span>
         <StatusBadge date={m.date} />
       </div>

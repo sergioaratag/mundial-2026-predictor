@@ -1,19 +1,20 @@
 "use client";
 
-export type TabKey = "resumen" | "picks" | "calendario" | "grupos";
+export type TabKey = "resumen" | "picks" | "calendario" | "grupos" | "noticias";
 
 export const TABS: { key: TabKey; label: string; icon: string }[] = [
   { key: "resumen", label: "Resumen", icon: "🏠" },
   { key: "picks", label: "Picks", icon: "🎯" },
   { key: "calendario", label: "Calendario", icon: "📅" },
   { key: "grupos", label: "Grupos", icon: "🗂️" },
+  { key: "noticias", label: "Noticias", icon: "📰" },
 ];
 
 export function TabNav({ active, onChange }: { active: TabKey; onChange: (t: TabKey) => void }) {
   return (
     <nav
       className="sticky top-0 z-40"
-      style={{ background: "var(--bg)", borderBottom: "1px solid var(--border)" }}
+      style={{ background: "var(--bg-primary)", borderBottom: "1px solid var(--border)" }}
     >
       <div className="flex gap-1 px-2 sm:px-4 overflow-x-auto mp-scroll">
         {TABS.map((t) => {

@@ -7,6 +7,7 @@ import { TabResumen } from "@/components/tabs/TabResumen";
 import { TabPicks } from "@/components/tabs/TabPicks";
 import { TabCalendario } from "@/components/tabs/TabCalendario";
 import { TabGrupos } from "@/components/tabs/TabGrupos";
+import { TabNoticias } from "@/components/tabs/TabNoticias";
 import { BackToTop } from "@/components/BackToTop";
 import { SkeletonList } from "@/components/Skeleton";
 
@@ -21,7 +22,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen pb-16" style={{ background: "var(--bg)" }}>
+    <main className="min-h-screen pb-16" style={{ background: "var(--bg-primary)" }}>
       <PanelHeader />
       <TabNav active={tab} onChange={setTab} />
       <div className="max-w-4xl mx-auto">
@@ -35,8 +36,10 @@ export default function Home() {
           <TabPicks />
         ) : tab === "calendario" ? (
           <TabCalendario />
-        ) : (
+        ) : tab === "grupos" ? (
           <TabGrupos />
+        ) : (
+          <TabNoticias />
         )}
       </div>
       <BackToTop />

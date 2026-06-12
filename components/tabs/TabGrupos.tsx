@@ -9,8 +9,8 @@ export function TabGrupos() {
       {/* 1 col en móvil (<480px via grid-cols-1), 2 en tablet, 3 en desktop */}
       <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-3 gap-3">
         {GROUPS.map((g) => (
-          <div key={g.letter} className="rounded-xl overflow-hidden" style={{ background: "var(--card)", border: "1px solid var(--border)" }}>
-            <div className="px-3 py-2 text-sm font-semibold" style={{ background: "var(--card-2)", color: "var(--gold)" }}>
+          <div key={g.letter} className="rounded-xl overflow-hidden" style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
+            <div className="px-3 py-2 text-sm font-semibold" style={{ background: "var(--bg-panel)", color: "var(--gold)" }}>
               Grupo {g.letter}
             </div>
             <ul className="p-2">

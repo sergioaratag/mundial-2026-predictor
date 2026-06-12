@@ -17,7 +17,7 @@ export function TabResumen({ onGo }: { onGo: (t: TabKey) => void }) {
     <div className="px-3 sm:px-6 py-5 flex flex-col gap-5">
       {/* Próximo partido */}
       {next && (
-        <div className="rounded-xl p-4" style={{ background: "var(--card)", border: `1px solid ${next.isToday ? "var(--gold)" : "var(--border)"}` }}>
+        <div className="rounded-xl p-4" style={{ background: "var(--bg-card)", border: `1px solid ${next.isToday ? "var(--gold)" : "var(--border)"}` }}>
           <div className="text-xs uppercase tracking-wide mb-1.5" style={{ color: next.isToday ? "var(--gold)" : "var(--muted)" }}>
             {next.isToday ? "Hoy juega" : "Próximo partido"}
           </div>
@@ -35,10 +35,10 @@ export function TabResumen({ onGo }: { onGo: (t: TabKey) => void }) {
 
       {/* Resumen de la jornada */}
       {jornadaHoy && (
-        <div className="rounded-xl p-4" style={{ background: "var(--card)", border: "1px solid var(--border)" }}>
+        <div className="rounded-xl p-4" style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
           <div className="flex items-center justify-between gap-2 mb-3">
             <h2 className="text-base font-semibold" style={{ color: "var(--gold)" }}>{jornadaHoy.label}</h2>
-            <button onClick={() => onGo("picks")} className="text-xs px-2.5 py-1 rounded-md" style={{ background: "var(--card-2)", color: "var(--text)", border: "1px solid var(--border)" }}>
+            <button onClick={() => onGo("picks")} className="text-xs px-2.5 py-1 rounded-md" style={{ background: "var(--bg-panel)", color: "var(--text)", border: "1px solid var(--border)" }}>
               Ver picks →
             </button>
           </div>
@@ -61,12 +61,12 @@ export function TabResumen({ onGo }: { onGo: (t: TabKey) => void }) {
       )}
 
       <div className="grid grid-cols-2 gap-3">
-        <button onClick={() => onGo("calendario")} className="rounded-xl p-4 text-left" style={{ background: "var(--card)", border: "1px solid var(--border)" }}>
+        <button onClick={() => onGo("calendario")} className="rounded-xl p-4 text-left" style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
           <div className="text-2xl">📅</div>
           <div className="text-sm font-medium mt-1">Calendario</div>
           <div className="text-xs" style={{ color: "var(--muted)" }}>Todos los partidos por fecha</div>
         </button>
-        <button onClick={() => onGo("grupos")} className="rounded-xl p-4 text-left" style={{ background: "var(--card)", border: "1px solid var(--border)" }}>
+        <button onClick={() => onGo("grupos")} className="rounded-xl p-4 text-left" style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
           <div className="text-2xl">🗂️</div>
           <div className="text-sm font-medium mt-1">Grupos</div>
           <div className="text-xs" style={{ color: "var(--muted)" }}>Los 12 grupos del Mundial</div>
