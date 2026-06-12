@@ -119,6 +119,123 @@ export const PICKS: PicksDay[] = [
     },
   },
   {
+    id: "jornada-3",
+    jornada: 3,
+    date: "2026-06-14",
+    label: "Jornada 3 · Domingo 14 de Junio",
+    matches: [
+      {
+        home: "Alemania",
+        away: "Curazao",
+        home_flag: "🇩🇪",
+        away_flag: "🇨🇼",
+        venue: "NRG Stadium",
+        city: "Houston",
+        group: "Grupo E",
+        time_bolivia: "13:00",
+        context:
+          "Alemania favorita absoluta: brecha de ranking de más de 70 posiciones, Curazao en su primer Mundial (la nación más pequeña en debutar), supercomputer da 89.6% de probabilidad de victoria alemana. NRG Stadium con techo, clima controlado.",
+        picks: [
+          { market: "Resultado", value: "Alemania gana", confidence: "hot", note: "Brecha de ranking de más de 70 posiciones, Curazao en su primer Mundial, supercomputer da 89.6% de probabilidad" },
+          { market: "Hándicap", value: "Alemania -3.5", confidence: "moderate", note: "Línea principal del partido, modelo proyecta 3-0 o 4-0 según distintas fuentes" },
+          { market: "Goles totales", value: "Over 4.5", confidence: "moderate", note: "Alemania anotó 4+ goles en 4 de sus últimos 8 partidos" },
+          { market: "Goleador", value: "Wirtz o Musiala anota", confidence: "low", note: "Ambos anotaron en la goleada 4-0 a Finlandia, candidatos a primer gol" },
+        ],
+        combos: [
+          { title: "Combo recomendado", legs: ["Alemania -3.5", "Over 4.5 goles totales"], odds: "~2.50x", risk: "moderate", note: "Apunta al guion de blowout en el que coinciden prácticamente todos los modelos" },
+        ],
+        avoid: [
+          "Alemania moneyline simple: cuota de -3300, sin valor real",
+          "BTTS Sí: Curazao es la nación más pequeña en debutar en un Mundial, sin pedigrí ofensivo",
+        ],
+      },
+      {
+        home: "Países Bajos",
+        away: "Japón",
+        home_flag: "🇳🇱",
+        away_flag: "🇯🇵",
+        venue: "AT&T Stadium",
+        city: "Arlington (Dallas)",
+        group: "Grupo F",
+        time_bolivia: "16:00",
+        context:
+          "Partido de máximo valor del día según el consenso de modelos. Holanda favorita ligera pero Japón llega con estructura defensiva sólida (eliminó a España y Alemania en 2022). Mitoma fuera por lesión de isquiotibiales. Marcador más probable 1-1 según Dimers. AT&T Stadium con aire acondicionado.",
+        picks: [
+          { market: "Goles", value: "Under 2.5", confidence: "hot", note: "Consenso multi-modelo, marcador más probable 1-1 según Dimers, línea de mercado en -118" },
+          { market: "Hándicap", value: "Japón +1.5", confidence: "moderate", note: "Mitoma fuera por lesión de isquiotibiales, pero estructura defensiva japonesa sólida, ya eliminó a España y Alemania en 2022" },
+          { market: "Doble oportunidad", value: "Holanda o empate (1X)", confidence: "low", note: "Cubre el resultado más probable sin descartar la sorpresa japonesa" },
+          { market: "Resultado exacto", value: "Empate 1-1", confidence: "low", note: "Cuota de +250 con valor real si el marcador más probable se cumple" },
+        ],
+        combos: [
+          { title: "Combo recomendado (valor)", legs: ["Japón +1.5", "Under 2.5 goles"], odds: "~2.20x", risk: "moderate", note: "El partido de mayor valor del día según el consenso de modelos" },
+        ],
+        avoid: [
+          "Holanda moneyline simple: cuota +105 no compensa el riesgo real de Japón",
+          "Over 2.5: contradice el consenso de prácticamente todos los modelos",
+        ],
+      },
+      {
+        home: "Costa de Marfil",
+        away: "Ecuador",
+        home_flag: "🇨🇮",
+        away_flag: "🇪🇨",
+        venue: "Lincoln Financial Field",
+        city: "Filadelfia",
+        group: "Grupo E",
+        time_bolivia: "19:00",
+        context:
+          "Duelo de defensas fuertes. Ecuador con la mejor defensa de Sudamérica en clasificación (solo 5 goles recibidos en 18 partidos, no le permitió anotar ni a Brasil ni a Argentina). El mercado fija el Under 2.5 en -250, señal estadística muy fuerte de partido cerrado.",
+        picks: [
+          { market: "Goles", value: "Under 2.5", confidence: "hot", note: "Mercado fija el Under en -250, señal estadística muy fuerte" },
+          { market: "Resultado", value: "Ecuador gana", confidence: "moderate", note: "Mejor defensa de Sudamérica en clasificación, solo 5 goles recibidos en 18 partidos, ML en +125" },
+          { market: "Clean Sheet Ecuador", value: "Sí", confidence: "low", note: "Ecuador no le permitió anotar ni a Brasil ni a Argentina en clasificación" },
+        ],
+        combos: [
+          { title: "Combo recomendado", legs: ["Ecuador gana", "Under 2.5 goles"], odds: "~2.80x", risk: "moderate", note: "Respaldo sólido del perfil defensivo ecuatoriano con valor en el ML a +125" },
+        ],
+        avoid: [
+          "Over 2.5: a +135 está caro y sin respaldo de ningún modelo",
+          "BTTS Sí: ambas defensas son el punto fuerte de sus equipos",
+        ],
+      },
+      {
+        home: "Suecia",
+        away: "Túnez",
+        home_flag: "🇸🇪",
+        away_flag: "🇹🇳",
+        venue: "Estadio BBVA",
+        city: "Monterrey",
+        group: "Grupo F",
+        time_bolivia: "22:00",
+        context:
+          "Partido de defensas frágiles. Suecia con ventaja ofensiva clara (Gyökeres e Isak) pero sin clean sheet en 11 partidos. Probabilidad de BTTS del 54.76% según Wincomparator. Monterrey es una de las sedes con mayor riesgo de calor.",
+        picks: [
+          { market: "Ambos marcan", value: "BTTS Sí", confidence: "hot", note: "Probabilidad de 54.76% según Wincomparator, ambas defensas son frágiles, Suecia sin clean sheet en 11 partidos" },
+          { market: "Resultado", value: "Suecia gana", confidence: "moderate", note: "Gyökeres e Isak dan ventaja ofensiva clara, ML en -106/-110" },
+          { market: "Goleador", value: "Viktor Gyökeres anota", confidence: "low", note: "Preferido sobre Isak tras mejor desempeño en el último amistoso ante Grecia" },
+        ],
+        combos: [
+          { title: "Combo recomendado", legs: ["Suecia gana", "BTTS Sí"], odds: "~2.60x", risk: "moderate", note: "Combina la ventaja ofensiva sueca con la fragilidad defensiva de ambos lados" },
+        ],
+        avoid: [
+          "Túnez gana: sin pedigrí ofensivo suficiente",
+          "Under 2.5: contradice el patrón defensivo frágil de ambos equipos, Túnez no concedió goles en toda su clasificatoria pero Suecia sí concede mucho",
+        ],
+      },
+    ],
+    megaCombo: {
+      title: "Mega Combo Jornada 3 (3 patas seleccionadas)",
+      legs: [
+        "Alemania -3.5 (vs Curazao)",
+        "Ecuador gana + Under 2.5 (vs Costa de Marfil)",
+        "Suecia gana + BTTS Sí (vs Túnez)",
+      ],
+      odds: "~9.50x",
+      risk: "alta",
+      note: "Países Bajos vs Japón se deja fuera por ser el de mayor incertidumbre real del día, se juega aparte como pick de valor independiente",
+    },
+  },
+  {
     id: "jornada-4",
     jornada: 4,
     date: "2026-06-15",
