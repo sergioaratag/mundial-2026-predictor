@@ -56,8 +56,10 @@ export const NEWS: NewsItem[] = [
 ];
 
 // Imágenes ilustrativas (no son fotos de noticias específicas, son de stock).
-// Nota: source.unsplash.com está descontinuado; las imágenes tienen fallback
-// a un degradado con emoji si la URL no carga.
+// Se usan URLs de picsum.photos (fotos genéricas aleatorias por seed, sin API
+// key). picsum NO filtra por contenido, así que las fotos no coinciden
+// necesariamente con el caption: son meramente ilustrativas. Si una imagen
+// falla al cargar, TabNoticias cae al fallback de degradado + emoji (onError).
 export interface GalleryImage {
   url: string;
   caption: string;
@@ -65,10 +67,10 @@ export interface GalleryImage {
 }
 
 export const GALLERY: GalleryImage[] = [
-  { url: "https://source.unsplash.com/600x400/?soccer,stadium&sig=1", caption: "Estadios del Mundial", emoji: "🏟️" },
-  { url: "https://source.unsplash.com/600x400/?soccer,fans&sig=2", caption: "La fiesta de la afición", emoji: "🎉" },
-  { url: "https://source.unsplash.com/600x400/?football,trophy&sig=3", caption: "El sueño de la Copa", emoji: "🏆" },
-  { url: "https://source.unsplash.com/600x400/?soccer,crowd&sig=4", caption: "Tribunas a reventar", emoji: "👥" },
-  { url: "https://source.unsplash.com/600x400/?world-cup,flags&sig=5", caption: "Banderas de 48 selecciones", emoji: "🚩" },
-  { url: "https://source.unsplash.com/600x400/?stadium,lights&sig=6", caption: "Noches de Mundial", emoji: "🌃" },
+  { url: "https://picsum.photos/seed/wc2026-stadium/600/400", caption: "Estadios del Mundial", emoji: "🏟️" },
+  { url: "https://picsum.photos/seed/wc2026-fans/600/400", caption: "La fiesta de la afición", emoji: "🎉" },
+  { url: "https://picsum.photos/seed/wc2026-trophy/600/400", caption: "El sueño de la Copa", emoji: "🏆" },
+  { url: "https://picsum.photos/seed/wc2026-crowd/600/400", caption: "Tribunas a reventar", emoji: "👥" },
+  { url: "https://picsum.photos/seed/wc2026-flags/600/400", caption: "Banderas de 48 selecciones", emoji: "🚩" },
+  { url: "https://picsum.photos/seed/wc2026-lights/600/400", caption: "Noches de Mundial", emoji: "🌃" },
 ];

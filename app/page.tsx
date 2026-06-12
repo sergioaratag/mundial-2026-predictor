@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { PanelHeader } from "@/components/PanelHeader";
 import { TabNav, type TabKey } from "@/components/TabNav";
 import { TabResumen } from "@/components/tabs/TabResumen";
+import { TabPredicciones } from "@/components/tabs/TabPredicciones";
 import { TabPicks } from "@/components/tabs/TabPicks";
 import { TabCalendario } from "@/components/tabs/TabCalendario";
 import { TabGrupos } from "@/components/tabs/TabGrupos";
@@ -32,6 +33,8 @@ export default function Home() {
           </div>
         ) : tab === "resumen" ? (
           <TabResumen onGo={setTab} />
+        ) : tab === "predicciones" ? (
+          <TabPredicciones />
         ) : tab === "picks" ? (
           <TabPicks />
         ) : tab === "calendario" ? (

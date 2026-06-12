@@ -1,9 +1,10 @@
 "use client";
 
-export type TabKey = "resumen" | "picks" | "calendario" | "grupos" | "noticias";
+export type TabKey = "resumen" | "predicciones" | "picks" | "calendario" | "grupos" | "noticias";
 
 export const TABS: { key: TabKey; label: string; icon: string }[] = [
   { key: "resumen", label: "Resumen", icon: "🏠" },
+  { key: "predicciones", label: "Predicciones", icon: "🔮" },
   { key: "picks", label: "Picks", icon: "🎯" },
   { key: "calendario", label: "Calendario", icon: "📅" },
   { key: "grupos", label: "Grupos", icon: "🗂️" },
