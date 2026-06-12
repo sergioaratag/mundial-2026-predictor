@@ -104,11 +104,7 @@ export function TabCalendario() {
           className="rounded-lg px-4 py-8 text-center text-sm"
           style={{ background: "var(--card)", border: "1px dashed var(--border)", color: "var(--muted)" }}
         >
-          Fixture por confirmar para esta fecha.
-          <div className="text-xs mt-1">
-            Solo están cargados los partidos verificados (inauguración + Jornada 2). El resto del calendario
-            oficial se carga cuando esté disponible.
-          </div>
+          No hay partidos para esta fecha con el filtro seleccionado.
         </div>
       )}
     </div>
