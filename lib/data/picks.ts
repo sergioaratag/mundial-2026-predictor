@@ -119,11 +119,132 @@ export const PICKS: PicksDay[] = [
     },
   },
   {
+    id: "jornada-3",
+    jornada: 3,
+    date: "2026-06-13",
+    label: "Jornada 3 · Sábado 13 de Junio",
+    matches: [
+      {
+        home: "Catar",
+        away: "Suiza",
+        home_flag: "🇶🇦",
+        away_flag: "🇨🇭",
+        venue: "Levi's Stadium",
+        city: "Santa Clara",
+        group: "Grupo B",
+        time_bolivia: "15:00",
+        context:
+          "Apertura del Grupo B. Suiza llega como favorita clara, con bookmakers en -334 a -350 para ganar y Sportytrader dando 60.12% de probabilidad de victoria suiza. Catar perdió 4 de sus últimos 6 partidos y no pudo jugar amistosos de preparación contra Argentina, Serbia y Sudán por el conflicto en Medio Oriente — jugaron solo 2 partidos desde diciembre 2025, ambos sin anotar (0-1 vs Irlanda, 0-0 vs El Salvador con apenas 1 tiro al arco a pesar de 60% de posesión). Suiza viene de golear 3-1 a Alemania y 4-1 a Suecia, y ganó 4-1 a Jordania en amistoso reciente. Marcador más probable según Dimers: Suiza 2-0.",
+        picks: [
+          { market: "Resultado", value: "Suiza gana", confidence: "hot", note: "60.12% de probabilidad según Sportytrader, Catar sin anotar en sus últimos 2 partidos y con apenas 1 tiro al arco en el más reciente" },
+          { market: "Hándicap", value: "Suiza -1.5", confidence: "moderate", note: "Ganar y cubrir -1.5 está caro en el mercado, pero el marcador más probable proyectado es 2-0, justo en el límite de esa línea" },
+          { market: "Ambos marcan", value: "BTTS No", confidence: "moderate", note: "Catar no anotó en 4 de sus últimos 5 partidos, y el BTTS falló en 4 de los últimos 5 partidos de Catar según Racing Post" },
+          { market: "Goles", value: "Over 2.5", confidence: "low", note: "Suiza anotó 2+ goles en 9 de sus últimos 13 partidos y tiene argumentos ofensivos sólidos, aunque depende de que rompan el bloque catarí" },
+        ],
+        combos: [
+          { title: "Combo recomendado", legs: ["Suiza gana", "BTTS No"], odds: "~1.85x", risk: "low-moderate", note: "Combina el favoritismo abrumador con el patrón reciente de Catar de no anotar, perfil de partido más seguro del día" },
+          { title: "Combo de valor", legs: ["Suiza -1.5", "BTTS No"], odds: "~2.50x", risk: "moderate", note: "Apunta al marcador más probable proyectado (2-0) que cumple ambas condiciones" },
+        ],
+        avoid: [
+          "Catar en cualquier mercado de resultado: 4 derrotas en sus últimos 6 partidos y sin gol en los últimos 2",
+          "Over 3.5: aunque Suiza puede golear, Catar viene mostrando un bloque defensivo apretado pese a los malos resultados generales",
+        ],
+      },
+      {
+        home: "Brasil",
+        away: "Marruecos",
+        home_flag: "🇧🇷",
+        away_flag: "🇲🇦",
+        venue: "MetLife Stadium",
+        city: "East Rutherford",
+        group: "Grupo C",
+        time_bolivia: "18:00",
+        context:
+          "El partido de mayor nivel del día. Brasil favorito a 1.57 según TNT Sports, con Vinicius Jr llegando de 22 goles y 10 asistencias en la temporada con el Real Madrid, y el equipo anotando 13 goles en sus últimos 5 partidos (incluyendo 6-0 a Panamá y 3-0 a Croacia). Marruecos, semifinalista en Qatar 2022 y ranking FIFA muy cercano (6 vs 7), llega con cambio de entrenador (Mohamed Ouahbi reemplazó a Regragui en marzo 2026) y bajas sensibles (Ezzalzouli y Aguerd fuera, Mazraoui duda). Pese a esto, Marruecos está invicto en sus últimos 29 partidos en los 90 minutos, incluyendo la final de la Copa Africana de Naciones, y concedió solo 1 gol de juego abierto en 7 partidos de esa Copa. Múltiples analistas ven Under 2.5 (-123 a -145) como la apuesta de mayor valor, esperando un partido táctico y cerrado pese a la calidad ofensiva de Brasil.",
+        picks: [
+          { market: "Goles", value: "Under 2.5", confidence: "hot", note: "Cotizado en -123/-145 por múltiples analistas, Marruecos invicto en 29 partidos consecutivos en 90 minutos con un bloque defensivo que concedió solo 1 gol de juego abierto en 7 partidos de la última Copa Africana" },
+          { market: "Resultado", value: "Brasil gana", confidence: "moderate", note: "Favorito a 1.57, mayor profundidad ofensiva con Vinicius Jr en gran forma, pero Marruecos históricamente neutraliza a selecciones top (eliminaron a España y Portugal en 2022)" },
+          { market: "Doble oportunidad", value: "Marruecos o empate (X2)", confidence: "low", note: "Cobertura de valor dado el cambio de entrenador reciente y las bajas de Marruecos, que generan incertidumbre real pese al buen historial defensivo" },
+          { market: "Goleador", value: "Vinicius Jr anota", confidence: "moderate", note: "22 goles y 10 asistencias en la temporada con Real Madrid, principal arma ofensiva brasileña y favorito del modelo para la Bota de Oro (+1800)" },
+        ],
+        combos: [
+          { title: "Combo recomendado", legs: ["Brasil gana", "Under 2.5 goles"], odds: "~2.65x", risk: "moderate", note: "Combina el favoritismo brasileño con el consenso de un partido cerrado y táctico, perfil de victoria 1-0 o 2-1 sobre un Marruecos bien plantado" },
+        ],
+        avoid: [
+          "Brasil -1.5 o más: Marruecos tiene el pedigrí defensivo reciente (invictos 29 partidos en 90 minutos) para evitar una goleada",
+          "Over 3.5: contradice el consenso casi unánime de un partido táctico y de pocos goles entre dos equipos de jerarquía similar",
+        ],
+      },
+      {
+        home: "Haití",
+        away: "Escocia",
+        home_flag: "🇭🇹",
+        away_flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+        venue: "Gillette Stadium",
+        city: "Foxborough",
+        group: "Grupo C",
+        time_bolivia: "21:00",
+        context:
+          "Debut histórico de Haití en un Mundial tras décadas de ausencia. Escocia regresa a un Mundial por primera vez en 28 años, con base sólida de Premier League y Championship. Pese a la diferencia de jerarquía aparente, al menos un analista señala el ML de Haití con 'draw no bet' a +360 como un valor sorprendentemente alto, 'shocking' según sus propias palabras — una señal de que el mercado puede estar sobrevalorando a Escocia en su debut tras tantos años de ausencia.",
+        picks: [
+          { market: "Resultado", value: "Escocia gana", confidence: "hot", note: "Mayor experiencia de plantilla en ligas top europeas, y necesidad de arrancar con triunfo antes de enfrentar a Brasil y Marruecos en el grupo" },
+          { market: "Doble oportunidad", value: "Haití o empate (Draw No Bet +360)", confidence: "low", note: "Valor especulativo señalado por al menos un analista como sorprendentemente alto dado que Escocia no tiene rodaje mundialista reciente (28 años de ausencia) y Haití llega con la motivación de su debut histórico" },
+          { market: "Goles", value: "Over 2.5", confidence: "moderate", note: "Escocia necesita generar diferencia de gol favorable desde el primer partido del grupo ante el rival más accesible en el papel" },
+          { market: "Hándicap", value: "Escocia -1", confidence: "moderate", note: "Línea que refleja el favoritismo esperado sin la sobre-exposición de un hándicap mayor" },
+        ],
+        combos: [
+          { title: "Combo recomendado", legs: ["Escocia gana", "Over 2.5 goles"], odds: "~2.55x", risk: "moderate", note: "Apunta al guion de victoria con margen que la diferencia de jerarquía y la necesidad de puntos de Escocia sugieren" },
+          { title: "Combo contra-corriente (valor)", legs: ["Haití o empate (+360)"], odds: "~4.60x", risk: "alta", note: "Pick aislado de un analista que lo describe como un valor inusualmente alto — Escocia sin rodaje mundialista en 28 años es el argumento principal" },
+        ],
+        avoid: [
+          "Escocia -2 o más: el debut histórico de Haití puede generar una motivación extra difícil de cuantificar",
+          "Under 2.5 como pick principal: Escocia tiene la necesidad táctica de buscar el resultado amplio desde el inicio",
+        ],
+      },
+    ],
+    megaCombo: {
+      title: "Mega Combo Jornada 3 (13 de junio, 3 patas)",
+      legs: [
+        "Suiza gana + BTTS No (vs Catar)",
+        "Brasil gana + Under 2.5 (vs Marruecos)",
+        "Escocia gana + Over 2.5 (vs Haití)",
+      ],
+      odds: "~12.80x",
+      risk: "alta",
+      note: "Brasil vs Marruecos es el partido de mayor incertidumbre real del día por el cambio de entrenador y bajas marroquíes, pero Under 2.5 tiene amplio respaldo del consenso de analistas (-123 a -145)",
+    },
+  },
+  {
     id: "jornada-4",
     jornada: 4,
     date: "2026-06-14",
     label: "Jornada 4 · Domingo 14 de Junio",
     matches: [
+      {
+        home: "Australia",
+        away: "Turquía",
+        home_flag: "🇦🇺",
+        away_flag: "🇹🇷",
+        venue: "BC Place",
+        city: "Vancouver",
+        group: "Grupo D",
+        time_bolivia: "00:00",
+        context:
+          "Turquía llega como uno de los dark horses más mencionados del Mundial, con un registro de 8-1-1 en sus últimos 10 partidos, incluyendo un empate 2-2 ante España (favorita del modelo Klement++) en clasificación y victorias por varios goles sobre Bulgaria, Georgia y Macedonia del Norte. Cuenta con Hakan Çalhanoğlu y Kerem Aktürkoğlu como referencias de calidad, además de Arda Güler (Real Madrid). Al menos un analista tiene a Turquía -145 como uno de sus locks del fin de semana, calificándolos como 'demasiado para que Australia maneje'.",
+        picks: [
+          { market: "Resultado", value: "Turquía gana", confidence: "hot", note: "Cotizado en -145 por al menos un analista como pick de bloqueo del día, registro de 8-1-1 en sus últimos 10 partidos incluyendo un empate 2-2 ante España" },
+          { market: "Goles", value: "Under 2.5", confidence: "moderate", note: "Turquía puede gestionar el resultado de su apertura de grupo sin necesidad de un marcador abultado ante un rival de menor jerarquía" },
+          { market: "Hándicap", value: "Turquía -1", confidence: "moderate", note: "Línea de valor que refleja el favoritismo marcado sin la sobre-exposición de un hándicap mayor en un partido de apertura" },
+          { market: "Goleador", value: "Arda Güler o Çalhanoğlu anota", confidence: "low", note: "Las dos referencias de mayor calidad individual del partido, con Güler aportando el nivel de Real Madrid" },
+        ],
+        combos: [
+          { title: "Combo recomendado", legs: ["Turquía -1", "Under 2.5 goles"], odds: "~2.30x", risk: "moderate", note: "Combina el favoritismo marcado con un perfil de partido controlado típico de aperturas de grupo para un equipo que no necesita arriesgar" },
+        ],
+        avoid: [
+          "Australia en cualquier mercado de resultado: brecha de calidad individual real, Turquía es uno de los picks de bloqueo más repetidos del fin de semana por los analistas",
+          "Over 3.5: ninguno de los dos equipos tiene el perfil de un partido goleador en su apertura de grupo",
+        ],
+      },
       {
         home: "Alemania",
         away: "Curazao",
