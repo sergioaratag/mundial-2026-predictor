@@ -38,7 +38,44 @@ export const PICKS: PicksDay[] = [
         combos: [],
         avoid: ["Hándicaps altos a México: openers de anfitriones rara vez son goleadas."],
       },
+      {
+        home: "Corea del Sur",
+        away: "Chequia",
+        home_flag: "🇰🇷",
+        away_flag: "🇨🇿",
+        venue: "Estadio Akron",
+        city: "Guadalajara (Zapopan)",
+        group: "Grupo A",
+        time_bolivia: "22:00",
+        context:
+          "Apertura del Grupo A donde México es favorito claro a -140 para ganar el grupo, dejando a Corea (+370) y Chequia (+390) peleando el segundo puesto. Corea llegó invicta en su clasificatoria con 20 goles marcados (el doble que casi cualquier otro equipo del grupo) y llegó a octavos en Qatar 2022. Chequia regresa a un Mundial tras 20 años de ausencia, clasificando vía penales 3-1 sobre Dinamarca, con un entrenador nuevo que solo dirigió 2 partidos competitivos. Hay división real entre analistas: unos ven Over 2.5 (Corea es la máxima goleadora de su grupo de clasificación, Chequia con 5 de sus últimos 5 partidos sobre 2.5), otros ven empate/Under (5 de los últimos 7 partidos de Corea fueron Under 2.5, y ambos equipos anotaron en solo 1 de los últimos 15 partidos de Corea). Patrik Schick (Chequia) llega con 11 goles en sus últimos 12 partidos entre club y selección, y 11 de los 22 goles de clasificación de Chequia vinieron de jugadas a balón parado.",
+        picks: [
+          { market: "Resultado", value: "Corea del Sur gana", confidence: "moderate", note: "Mayor diferencia de talento ofensivo y Chequia con entrenador nuevo sin tiempo de instalar un sistema, pero el margen real es estrecho (+160 Corea, +200 empate, +195 Chequia)" },
+          { market: "Goles", value: "Over 2.5", confidence: "moderate", note: "Corea fue la máxima goleadora de su grupo de clasificación (20 goles) y Chequia llega con 5 de sus últimos 5 partidos sobre esa línea, aunque otro análisis señala que 5 de los últimos 7 de Corea fueron Under — división real en el mercado" },
+          { market: "Goleador", value: "Patrik Schick anota", confidence: "moderate", note: "11 goles en sus últimos 12 partidos entre club y selección, y Chequia genera mucho desde balón parado donde Schick es la principal referencia aérea" },
+          { market: "Primer goleador", value: "Son Heung-min o Schick", confidence: "low", note: "Los dos nombres más mencionados para abrir el marcador, ambos equipos construidos alrededor de jugadas a balón parado y contragolpes" },
+          { market: "Tarjetas", value: "Over 3.5", confidence: "low", note: "El lateral derecho de Chequia acumuló 33 faltas en 34 partidos con Hoffenheim esta temporada y es contribuyente regular de tarjetas para su selección" },
+        ],
+        combos: [
+          { title: "Combo recomendado", legs: ["Corea del Sur gana", "Over 2.5 goles"], odds: "~3.10x", risk: "moderate-alta", note: "Apunta al argumento ofensivo de Corea como máxima goleadora de su grupo de clasificación, aunque el mercado está genuinamente dividido en este partido" },
+          { title: "Combo alternativo (consenso conservador)", legs: ["Empate", "Under 2.5 goles"], odds: "~4.40x", risk: "alta", note: "Para quien prefiera el análisis que ve un partido cerrado tipo 1-1, citado como 'la apuesta de valor' por una fuente especializada" },
+        ],
+        avoid: [
+          "Chequia gana como pick principal: diferencia de talento ofensivo favorece a Corea, y Chequia llega con entrenador sin tiempo de preparación",
+          "Cualquier mercado de Clean Sheet: el historial de ambos equipos en clasificación no respalda porterías a cero en este enfrentamiento",
+        ],
+      },
     ],
+    megaCombo: {
+      title: "Mega Combo Jornada 1 (11 de junio, 2 patas)",
+      legs: [
+        "México gana (vs Sudáfrica)",
+        "Corea del Sur gana + Over 2.5 (vs Chequia)",
+      ],
+      odds: "~4.20x",
+      risk: "alta",
+      note: "Combina el favoritismo claro de México como anfitrión con el argumento ofensivo de Corea en un partido donde el mercado está dividido",
+    },
   },
   {
     id: "jornada-2",
