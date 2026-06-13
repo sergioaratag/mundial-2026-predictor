@@ -18,8 +18,8 @@ export function BackToTop() {
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       aria-label="Volver arriba"
-      className="fixed bottom-5 right-5 z-50 h-11 w-11 rounded-full flex items-center justify-center text-lg transition-transform active:scale-95 hover:scale-105"
-      style={{ background: "var(--bg-card)", border: "1px solid var(--gold)", color: "var(--gold)" }}
+      className="lego-block lego-gold lego-pressable fixed bottom-5 right-5 z-50 h-12 w-12 flex items-center justify-center text-xl font-bold"
+      style={{ borderRadius: "9999px" }}
     >
       ↑
     </button>

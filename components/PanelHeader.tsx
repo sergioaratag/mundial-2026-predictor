@@ -18,39 +18,37 @@ export function PanelHeader() {
   }, []);
 
   return (
-    <header
-      className="px-4 sm:px-6 pt-6 pb-4"
-      style={{ borderBottom: "1px solid var(--border)", background: "var(--bg-primary)" }}
-    >
-      <div className="flex items-center gap-2.5">
-        <TrophyIcon size={30} />
-        <h1 className="text-xl sm:text-2xl font-semibold tracking-tight">
-          Mundial 2026 · <span style={{ color: "var(--gold)" }}>Predictor</span>
-        </h1>
-        {mounted && next?.isToday && (
-          <span
-            className="ml-auto inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold"
-            style={{ color: "var(--red)", background: "rgba(216,31,38,0.14)", border: "1px solid rgba(216,31,38,0.4)" }}
-          >
-            <span className="mp-live-dot h-1.5 w-1.5 rounded-full" style={{ background: "var(--red)" }} />
-            EN VIVO HOY
+    <div className="px-3 sm:px-6 pt-5 pb-3">
+      <header className="lego-block lego-purple px-4 sm:px-5 py-4">
+        <div className="flex items-center gap-2.5">
+          <span className="lego-block--sm bg-white inline-flex items-center justify-center h-9 w-9 shrink-0">
+            <TrophyIcon size={24} />
           </span>
-        )}
-      </div>
+          <h1 className="text-lg sm:text-2xl tracking-tight text-white leading-none">
+            Mundial 2026 · <span style={{ color: "var(--gold-light)" }}>Predictor</span>
+          </h1>
+          {mounted && next?.isToday && (
+            <span className="lego-block--sm lego-red ml-auto inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-bold uppercase">
+              <span className="mp-live-dot h-2 w-2 rounded-full" style={{ background: "var(--lime)" }} />
+              En vivo hoy
+            </span>
+          )}
+        </div>
 
-      {mounted && next ? (
-        <p className="mt-1.5 text-sm" style={{ color: next.isToday ? "var(--gold)" : "var(--muted)" }}>
-          {next.isToday ? "Hoy" : "Próximo partido"}:{" "}
-          <span className="font-medium" style={{ color: "var(--text)" }}>
-            {next.match.home_flag} {next.match.home} vs {next.match.away} {next.match.away_flag}
-          </span>{" "}
-          — {next.isToday ? `${next.match.time_et} (hora Bolivia)` : humanUntil(next.hoursUntil)}
-        </p>
-      ) : (
-        <p className="mt-1.5 text-sm" style={{ color: "var(--muted)" }}>
-          Picks, combos y calendario · horarios en hora Bolivia (UTC-4)
-        </p>
-      )}
-    </header>
+        {mounted && next ? (
+          <p className="mt-2.5 text-sm font-medium on-dark-muted">
+            {next.isToday ? "Hoy" : "Próximo partido"}:{" "}
+            <span className="text-white font-semibold">
+              {next.match.home_flag} {next.match.home} vs {next.match.away} {next.match.away_flag}
+            </span>{" "}
+            — {next.isToday ? `${next.match.time_et} (hora Bolivia)` : humanUntil(next.hoursUntil)}
+          </p>
+        ) : (
+          <p className="mt-2.5 text-sm on-dark-muted">
+            Picks, combos y calendario · horarios en hora Bolivia (UTC-4)
+          </p>
+        )}
+      </header>
+    </div>
   );
 }

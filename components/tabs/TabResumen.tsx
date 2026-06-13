@@ -15,18 +15,18 @@ export function TabResumen({ onGo }: { onGo: (t: TabKey) => void }) {
 
   return (
     <div className="px-3 sm:px-6 py-5 flex flex-col gap-5">
-      {/* Próximo partido */}
+      {/* Próximo partido / Hoy juega */}
       {next && (
-        <div className="rounded-xl p-4" style={{ background: "var(--bg-card)", border: `1px solid ${next.isToday ? "var(--gold)" : "var(--border)"}` }}>
-          <div className="text-xs uppercase tracking-wide mb-1.5" style={{ color: next.isToday ? "var(--gold)" : "var(--muted)" }}>
-            {next.isToday ? "Hoy juega" : "Próximo partido"}
+        <div className={`lego-block ${next.isToday ? "lego-emerald" : "lego-white"} p-4`}>
+          <div className="text-xs uppercase tracking-wide mb-1.5 font-bold">
+            {next.isToday ? "⚽ Hoy juega" : "Próximo partido"}
           </div>
-          <div className="text-lg font-semibold">
-            {next.match.home_flag} {next.match.home} <span style={{ color: "var(--muted)" }}>vs</span> {next.match.away} {next.match.away_flag}
+          <div className="text-lg sm:text-xl">
+            {next.match.home_flag} {next.match.home} <span className="opacity-60">vs</span> {next.match.away} {next.match.away_flag}
           </div>
-          <div className="text-sm mt-1" style={{ color: "var(--muted)" }}>
+          <div className={`text-sm mt-1.5 font-medium ${next.isToday ? "" : "on-light-muted"}`}>
             {next.match.group} · {next.match.venue}, {next.match.city} ·{" "}
-            <span style={{ color: "var(--gold)" }}>
+            <span className="font-bold">
               {next.match.time_et} hora Bolivia {next.isToday ? "" : `(${humanUntil(next.hoursUntil)})`}
             </span>
           </div>
@@ -35,41 +35,44 @@ export function TabResumen({ onGo }: { onGo: (t: TabKey) => void }) {
 
       {/* Resumen de la jornada */}
       {jornadaHoy && (
-        <div className="rounded-xl p-4" style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
+        <div className="lego-block lego-white p-4">
           <div className="flex items-center justify-between gap-2 mb-3">
-            <h2 className="text-base font-semibold" style={{ color: "var(--gold)" }}>{jornadaHoy.label}</h2>
-            <button onClick={() => onGo("picks")} className="text-xs px-2.5 py-1 rounded-md" style={{ background: "var(--bg-panel)", color: "var(--text)", border: "1px solid var(--border)" }}>
+            <h2 className="text-base">{jornadaHoy.label}</h2>
+            <button
+              onClick={() => onGo("picks")}
+              className="lego-block--sm lego-gold lego-pressable text-xs px-2.5 py-1 font-bold shrink-0"
+            >
               Ver picks →
             </button>
           </div>
           <ul className="flex flex-col gap-2">
             {jornadaHoy.matches.map((m, i) => (
-              <li key={i} className="flex items-center gap-2 text-sm">
-                <span style={{ color: "var(--gold)" }}>{m.time_bolivia}</span>
-                <span>{m.home_flag} {m.home} vs {m.away} {m.away_flag}</span>
-                <span className="text-xs ml-auto" style={{ color: "var(--muted)" }}>{m.picks.length} picks</span>
+              <li key={i} className="lego-block--sm lego-page flex items-center gap-2 text-sm px-2.5 py-1.5">
+                <span className="font-mono font-bold text-xs">{m.time_bolivia}</span>
+                <span className="font-medium truncate">{m.home_flag} {m.home} vs {m.away} {m.away_flag}</span>
+                <span className="text-xs ml-auto on-light-muted shrink-0">{m.picks.length} picks</span>
               </li>
             ))}
           </ul>
           {jornadaHoy.megaCombo && (
-            <div className="mt-3 text-sm rounded-lg p-2.5" style={{ background: "rgba(216,178,90,0.10)", border: "1px solid var(--gold)" }}>
-              <span style={{ color: "var(--gold)" }}>★ {jornadaHoy.megaCombo.title}</span>{" "}
-              <span className="font-mono" style={{ color: "var(--green)" }}>{jornadaHoy.megaCombo.odds}</span>
+            <div className="lego-block--sm lego-gold mt-3 text-sm px-3 py-2 font-semibold">
+              ★ {jornadaHoy.megaCombo.title}{" "}
+              <span className="font-mono font-bold">{jornadaHoy.megaCombo.odds}</span>
             </div>
           )}
         </div>
       )}
 
       <div className="grid grid-cols-2 gap-3">
-        <button onClick={() => onGo("calendario")} className="rounded-xl p-4 text-left" style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
+        <button onClick={() => onGo("calendario")} className="lego-block lego-lime lego-pressable p-4 text-left">
           <div className="text-2xl">📅</div>
-          <div className="text-sm font-medium mt-1">Calendario</div>
-          <div className="text-xs" style={{ color: "var(--muted)" }}>Todos los partidos por fecha</div>
+          <div className="text-sm font-bold mt-1">Calendario</div>
+          <div className="text-xs font-medium opacity-70">Todos los partidos por fecha</div>
         </button>
-        <button onClick={() => onGo("grupos")} className="rounded-xl p-4 text-left" style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
+        <button onClick={() => onGo("grupos")} className="lego-block lego-purple lego-pressable p-4 text-left">
           <div className="text-2xl">🗂️</div>
-          <div className="text-sm font-medium mt-1">Grupos</div>
-          <div className="text-xs" style={{ color: "var(--muted)" }}>Los 12 grupos del Mundial</div>
+          <div className="text-sm font-bold mt-1">Grupos</div>
+          <div className="text-xs font-medium on-dark-muted">Los 12 grupos del Mundial</div>
         </button>
       </div>
     </div>

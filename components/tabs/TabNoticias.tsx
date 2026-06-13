@@ -4,11 +4,12 @@ import { useState } from "react";
 import { NEWS, GALLERY, type NewsItem } from "@/lib/data/news";
 import { todayISO } from "@/lib/dates";
 
-const CAT: Record<NewsItem["category"], { label: string; color: string; bg: string }> = {
-  resultado: { label: "Resultado", color: "var(--emerald)", bg: "rgba(0,197,102,0.14)" },
-  lesion: { label: "Lesión", color: "var(--red)", bg: "rgba(216,31,38,0.14)" },
-  previa: { label: "Previa", color: "var(--purple)", bg: "rgba(91,33,214,0.18)" },
-  general: { label: "General", color: "var(--gold)", bg: "rgba(212,168,67,0.14)" },
+// Badge de categoría como mini-bloque LEGO de color.
+const CAT: Record<NewsItem["category"], { label: string; cls: string }> = {
+  resultado: { label: "Resultado", cls: "lego-emerald-dark" },
+  lesion: { label: "Lesión", cls: "lego-red" },
+  previa: { label: "Previa", cls: "lego-purple" },
+  general: { label: "General", cls: "lego-gold" },
 };
 
 // Fecha relativa simple en español a partir de ISO (yyyy-mm-dd).
@@ -32,35 +33,22 @@ export function TabNoticias() {
         {NEWS.map((n) => {
           const c = CAT[n.category];
           return (
-            <article
-              key={n.id}
-              className="rounded-xl overflow-hidden"
-              style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}
-            >
+            <article key={n.id} className="lego-block lego-white overflow-hidden p-0">
               {n.image_url && <NewsImage url={n.image_url} alt={n.title} emoji="📰" />}
               <div className="p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <span
-                    className="text-[11px] px-2 py-0.5 rounded-full font-medium"
-                    style={{ color: c.color, background: c.bg }}
-                  >
-                    {c.label}
-                  </span>
-                  <span className="text-xs ml-auto" style={{ color: "var(--muted)" }}>
-                    {relDate(n.date)}
-                  </span>
+                  <span className={`lego-block--sm ${c.cls} text-[11px] px-2 py-0.5 font-bold`}>{c.label}</span>
+                  <span className="text-xs ml-auto on-light-muted font-medium">{relDate(n.date)}</span>
                 </div>
-                <h3 className="text-base font-semibold leading-snug">{n.title}</h3>
-                <p className="text-sm mt-1.5 leading-relaxed" style={{ color: "var(--muted)" }}>
-                  {n.summary}
-                </p>
+                <h3 className="text-base leading-snug">{n.title}</h3>
+                <p className="text-sm mt-1.5 leading-relaxed on-light-muted">{n.summary}</p>
                 {n.source_url && (
                   <a
                     href={n.source_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block text-xs mt-2"
-                    style={{ color: "var(--emerald)" }}
+                    className="inline-block text-xs mt-2 font-bold"
+                    style={{ color: "var(--emerald-dark)" }}
                   >
                     Ver fuente →
                   </a>
@@ -71,20 +59,14 @@ export function TabNoticias() {
         })}
       </div>
 
-      {/* Imágenes destacadas */}
+      {/* Imágenes destacadas (estilo polaroid con marco) */}
       <section>
-        <h2 className="text-lg font-semibold mb-3" style={{ color: "var(--gold)" }}>
-          Imágenes destacadas
-        </h2>
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+        <h2 className="text-lg mb-3">📸 Imágenes destacadas</h2>
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
           {GALLERY.map((g, i) => (
-            <figure
-              key={i}
-              className="rounded-xl overflow-hidden"
-              style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}
-            >
+            <figure key={i} className="lego-block lego-white overflow-hidden p-0">
               <NewsImage url={g.url} alt={g.caption} emoji={g.emoji} ratio />
-              <figcaption className="px-3 py-2 text-xs" style={{ color: "var(--muted)" }}>
+              <figcaption className="px-3 py-2 text-xs font-semibold" style={{ borderTop: "3px solid var(--ink)" }}>
                 {g.caption}
               </figcaption>
             </figure>
@@ -95,16 +77,16 @@ export function TabNoticias() {
   );
 }
 
-// Imagen con fallback a degradado + emoji si la URL externa no carga.
+// Imagen con fallback a bloque de color + emoji si la URL externa no carga.
 function NewsImage({ url, alt, emoji, ratio }: { url: string; alt: string; emoji: string; ratio?: boolean }) {
   const [failed, setFailed] = useState(false);
   if (failed) {
     return (
       <div
         className={`flex items-center justify-center ${ratio ? "aspect-[3/2]" : "h-44"}`}
-        style={{ background: "linear-gradient(135deg, var(--bg-panel), var(--maroon))" }}
+        style={{ background: "var(--lime)", borderBottom: "3px solid var(--ink)" }}
       >
-        <span className="text-4xl opacity-80">{emoji}</span>
+        <span className="text-4xl">{emoji}</span>
       </div>
     );
   }
@@ -116,6 +98,7 @@ function NewsImage({ url, alt, emoji, ratio }: { url: string; alt: string; emoji
       loading="lazy"
       onError={() => setFailed(true)}
       className={`w-full object-cover ${ratio ? "aspect-[3/2]" : "h-44"}`}
+      style={{ borderBottom: "3px solid var(--ink)" }}
     />
   );
 }

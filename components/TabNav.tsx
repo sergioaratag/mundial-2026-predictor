@@ -15,27 +15,22 @@ export function TabNav({ active, onChange }: { active: TabKey; onChange: (t: Tab
   return (
     <nav
       className="sticky top-0 z-40"
-      style={{ background: "var(--bg-primary)", borderBottom: "1px solid var(--border)" }}
+      style={{ background: "var(--bg-page)" }}
     >
-      <div className="flex gap-1 px-2 sm:px-4 overflow-x-auto mp-scroll">
+      <div className="flex gap-2 px-3 sm:px-6 py-2.5 overflow-x-auto mp-scroll">
         {TABS.map((t) => {
           const isActive = active === t.key;
           return (
             <button
               key={t.key}
               onClick={() => onChange(t.key)}
-              className="relative px-3 sm:px-4 py-3 text-sm whitespace-nowrap transition-colors"
-              style={{ color: isActive ? "var(--text)" : "var(--muted)" }}
+              aria-current={isActive ? "page" : undefined}
+              className={`lego-block--sm lego-pressable shrink-0 px-3 py-1.5 text-sm whitespace-nowrap ${
+                isActive ? "lego-gold font-bold" : "lego-white font-medium"
+              }`}
             >
               <span className="mr-1.5">{t.icon}</span>
               {t.label}
-              {isActive && (
-                <span
-                  aria-hidden
-                  className="absolute left-2 right-2 bottom-0 h-0.5 rounded-full"
-                  style={{ background: "var(--gold)" }}
-                />
-              )}
             </button>
           );
         })}
