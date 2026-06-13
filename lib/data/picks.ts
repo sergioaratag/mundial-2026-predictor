@@ -119,10 +119,10 @@ export const PICKS: PicksDay[] = [
     },
   },
   {
-    id: "jornada-3",
-    jornada: 3,
+    id: "jornada-4",
+    jornada: 4,
     date: "2026-06-14",
-    label: "Jornada 3 · Domingo 14 de Junio",
+    label: "Jornada 4 · Domingo 14 de Junio",
     matches: [
       {
         home: "Alemania",
@@ -224,7 +224,7 @@ export const PICKS: PicksDay[] = [
       },
     ],
     megaCombo: {
-      title: "Mega Combo Jornada 3 (3 patas seleccionadas)",
+      title: "Mega Combo Jornada 4 (3 patas seleccionadas)",
       legs: [
         "Alemania -3.5 (vs Curazao)",
         "Ecuador gana + Under 2.5 (vs Costa de Marfil)",
@@ -236,10 +236,10 @@ export const PICKS: PicksDay[] = [
     },
   },
   {
-    id: "jornada-4",
-    jornada: 4,
+    id: "jornada-5",
+    jornada: 5,
     date: "2026-06-15",
-    label: "Jornada 4 · Lunes 15 de Junio",
+    label: "Jornada 5 · Lunes 15 de Junio",
     matches: [
       {
         home: "España",
@@ -345,7 +345,7 @@ export const PICKS: PicksDay[] = [
       },
     ],
     megaCombo: {
-      title: "Mega Combo Jornada 4 (3 patas seleccionadas)",
+      title: "Mega Combo Jornada 5 (3 patas seleccionadas)",
       legs: [
         "España -2.5 (vs Cabo Verde)",
         "Uruguay gana + Under 2.5 (vs Arabia Saudita)",
