@@ -47,6 +47,16 @@ export interface PickMatch {
   picks: Pick[];
   combos: Combo[];
   avoid: string[];
+  referee?: RefereeInfo; // árbitro con estadísticas (opcional)
+}
+
+export interface RefereeInfo {
+  name: string;
+  country: string;
+  avg_cards: number; // promedio de tarjetas por partido
+  avg_fouls: number; // promedio de faltas por partido
+  matches_sample: number; // tamaño de muestra (partidos analizados)
+  estimated?: boolean; // true si los promedios no están confirmados con precisión
 }
 
 export interface PicksDay {

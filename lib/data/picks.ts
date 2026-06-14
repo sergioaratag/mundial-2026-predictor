@@ -186,6 +186,7 @@ export const PICKS: PicksDay[] = [
           "Catar en cualquier mercado de resultado: 4 derrotas en sus últimos 6 partidos y sin gol en los últimos 2",
           "Over 3.5: aunque Suiza puede golear, Catar viene mostrando un bloque defensivo apretado pese a los malos resultados generales",
         ],
+        referee: { name: "Saíd Martínez", country: "Honduras", avg_cards: 4.0, avg_fouls: 24.0, matches_sample: 40, estimated: true },
       },
       {
         home: "Brasil",
@@ -211,6 +212,7 @@ export const PICKS: PicksDay[] = [
           "Brasil -1.5 o más: Marruecos tiene el pedigrí defensivo reciente (invictos 29 partidos en 90 minutos) para evitar una goleada",
           "Over 3.5: contradice el consenso casi unánime de un partido táctico y de pocos goles entre dos equipos de jerarquía similar",
         ],
+        referee: { name: "Slavko Vinčić", country: "Eslovenia", avg_cards: 4.1, avg_fouls: 25.5, matches_sample: 88 },
       },
       {
         home: "Haití",
@@ -228,6 +230,7 @@ export const PICKS: PicksDay[] = [
           { market: "Doble oportunidad", value: "Haití o empate (Draw No Bet +360)", confidence: "low", note: "Valor especulativo señalado por al menos un analista como sorprendentemente alto dado que Escocia no tiene rodaje mundialista reciente (28 años de ausencia) y Haití llega con la motivación de su debut histórico" },
           { market: "Goles", value: "Over 2.5", confidence: "moderate", note: "Escocia necesita generar diferencia de gol favorable desde el primer partido del grupo ante el rival más accesible en el papel" },
           { market: "Hándicap", value: "Escocia -1", confidence: "moderate", note: "Línea que refleja el favoritismo esperado sin la sobre-exposición de un hándicap mayor" },
+          { market: "Tarjetas", value: "Over 3.5", confidence: "moderate", note: "Mustapha Ghorbal promedia 4.2 tarjetas y 28.8 faltas por partido en su muestra de 30 partidos, por encima de la media típica de un partido de Mundial" },
         ],
         combos: [
           { title: "Combo recomendado", legs: ["Escocia gana", "Over 2.5 goles"], odds: "~2.55x", risk: "moderate", note: "Apunta al guion de victoria con margen que la diferencia de jerarquía y la necesidad de puntos de Escocia sugieren" },
@@ -237,6 +240,7 @@ export const PICKS: PicksDay[] = [
           "Escocia -2 o más: el debut histórico de Haití puede generar una motivación extra difícil de cuantificar",
           "Under 2.5 como pick principal: Escocia tiene la necesidad táctica de buscar el resultado amplio desde el inicio",
         ],
+        referee: { name: "Mustapha Ghorbal", country: "Argelia", avg_cards: 4.2, avg_fouls: 28.8, matches_sample: 30 },
       },
     ],
     megaCombo: {
@@ -273,6 +277,7 @@ export const PICKS: PicksDay[] = [
           { market: "Goles", value: "Under 2.5", confidence: "moderate", note: "Turquía puede gestionar el resultado de su apertura de grupo sin necesidad de un marcador abultado ante un rival de menor jerarquía" },
           { market: "Hándicap", value: "Turquía -1", confidence: "moderate", note: "Línea de valor que refleja el favoritismo marcado sin la sobre-exposición de un hándicap mayor en un partido de apertura" },
           { market: "Goleador", value: "Arda Güler o Çalhanoğlu anota", confidence: "low", note: "Las dos referencias de mayor calidad individual del partido, con Güler aportando el nivel de Real Madrid" },
+          { market: "Tarjetas", value: "Over 4.5", confidence: "moderate", note: "Jesús Valenzuela Sáez es el árbitro con mayor promedio de tarjetas del fin de semana (5.4 por partido en 86 partidos analizados), refuerza el perfil de partido con fricción física" },
         ],
         combos: [
           { title: "Combo recomendado", legs: ["Turquía -1", "Under 2.5 goles"], odds: "~2.30x", risk: "moderate", note: "Combina el favoritismo marcado con un perfil de partido controlado típico de aperturas de grupo para un equipo que no necesita arriesgar" },
@@ -281,6 +286,7 @@ export const PICKS: PicksDay[] = [
           "Australia en cualquier mercado de resultado: brecha de calidad individual real, Turquía es uno de los picks de bloqueo más repetidos del fin de semana por los analistas",
           "Over 3.5: ninguno de los dos equipos tiene el perfil de un partido goleador en su apertura de grupo",
         ],
+        referee: { name: "Jesús Valenzuela Sáez", country: "Venezuela", avg_cards: 5.4, avg_fouls: 27.4, matches_sample: 86 },
       },
       {
         home: "Alemania",

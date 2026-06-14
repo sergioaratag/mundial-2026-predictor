@@ -1,39 +1,43 @@
 "use client";
 
+import { useState } from "react";
 import { PICKS } from "@/lib/data/picks";
-import type { Confidence, Combo, PickMatch } from "@/lib/types";
-
-// Tema del mini-bloque del pick según la confianza (el fondo ES el indicador).
-const CONF: Record<Confidence, { label: string; block: string }> = {
-  hot: { label: "🔥 Alta", block: "lego-emerald" },
-  moderate: { label: "Media", block: "lego-gold" },
-  low: { label: "Baja", block: "lego-page" },
-};
+import type { PickMatch, PicksDay } from "@/lib/types";
+import { PickItem, ComboCard, AvoidBlock, RefereeBlock } from "@/components/picks-ui";
+import { JornadaModal } from "@/components/JornadaModal";
 
 export function TabPicks() {
+  const [modalDay, setModalDay] = useState<PicksDay | null>(null);
+
   function go(id: string) {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   return (
     <div className="px-3 sm:px-6 py-5">
-      {/* Chips de jornada */}
-      <div className="flex gap-2 overflow-x-auto mp-scroll pb-2 mb-4 -mx-1 px-1 sticky top-[56px] z-30" style={{ background: "var(--bg-page)" }}>
+      {/* Chips de jornada: scroll (principal) + botón de detalle (modal) */}
+      <div className="flex gap-2 overflow-x-auto mp-scroll pb-2 mb-4 -mx-1 px-1 sticky top-[52px] z-30" style={{ background: "rgba(33,36,41,0.82)", backdropFilter: "blur(10px)" }}>
         {PICKS.map((d) => (
-          <button
-            key={d.id}
-            onClick={() => go(d.id)}
-            className="lego-block--sm lego-white lego-pressable shrink-0 px-3 py-1.5 text-sm font-bold"
-          >
-            Jornada {d.jornada}
-          </button>
+          <div key={d.id} className="neon-press shrink-0 flex items-center rounded-lg overflow-hidden font-display font-semibold" style={{ background: "var(--surface-2)" }}>
+            <button onClick={() => go(d.id)} className="pl-3 pr-2 py-1.5 text-sm text-white">
+              Jornada {d.jornada}
+            </button>
+            <button
+              onClick={() => setModalDay(d)}
+              title="Ver detalle completo"
+              className="px-2 py-1.5 text-sm"
+              style={{ color: "var(--turquoise)", borderLeft: "1px solid rgba(255,255,255,0.08)" }}
+            >
+              ⊕
+            </button>
+          </div>
         ))}
       </div>
 
       <div className="flex flex-col gap-10">
         {PICKS.map((day) => (
           <section key={day.id} id={day.id} className="scroll-mt-28">
-            <h2 className="text-lg mb-4">{day.label}</h2>
+            <h2 className="text-lg mb-4 text-white">{day.label}</h2>
 
             <div className="flex flex-col gap-5">
               {day.matches.map((m, i) => (
@@ -49,42 +53,41 @@ export function TabPicks() {
           </section>
         ))}
       </div>
+
+      {modalDay && <JornadaModal day={modalDay} onClose={() => setModalDay(null)} />}
     </div>
   );
 }
 
 function MatchPicks({ m }: { m: PickMatch }) {
   return (
-    <article className="lego-block lego-white overflow-hidden p-0">
+    <article className="neon-card overflow-hidden">
       {/* Cabecera del partido */}
-      <div className="lego-gold px-4 py-3 flex flex-wrap items-center gap-x-3 gap-y-1" style={{ borderBottom: "3px solid var(--ink)" }}>
-        <span className="text-base font-bold">
-          {m.home_flag} {m.home} <span className="opacity-60">vs</span> {m.away} {m.away_flag}
+      <div className="px-4 py-3 flex flex-wrap items-center gap-x-3 gap-y-1" style={{ background: "linear-gradient(135deg, rgba(93,25,229,0.18), rgba(53,82,243,0.1))", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
+        <span className="text-base font-bold text-white">
+          {m.home_flag} {m.home} <span className="muted">vs</span> {m.away} {m.away_flag}
         </span>
-        <span className="lego-block--sm lego-white text-xs px-1.5 py-0.5 font-bold">{m.group}</span>
-        <span className="text-xs ml-auto font-bold">{m.time_bolivia} · hora Bolivia</span>
-        <span className="text-xs w-full sm:w-auto font-medium opacity-80">{m.venue} · {m.city}</span>
+        <span className="chip" style={{ background: "var(--surface-2)", color: "var(--lilac)" }}>{m.group}</span>
+        <span className="text-xs ml-auto font-bold" style={{ color: "var(--turquoise)" }}>{m.time_bolivia} · hora Bolivia</span>
+        <span className="text-xs w-full sm:w-auto muted">{m.venue} · {m.city}</span>
       </div>
 
       <div className="p-4">
-        <p className="text-sm leading-relaxed mb-4 on-light-muted">{m.context}</p>
+        <p className="text-sm leading-relaxed mb-4 muted">{m.context}</p>
 
         {/* Picks grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {m.picks.map((p, i) => {
-            const c = CONF[p.confidence];
-            return (
-              <div key={i} className={`lego-block--sm ${c.block} p-3`}>
-                <div className="flex items-center justify-between gap-2 mb-1">
-                  <span className="text-[11px] uppercase tracking-wide font-bold opacity-70">{p.market}</span>
-                  <span className="text-[11px] font-bold whitespace-nowrap">{c.label}</span>
-                </div>
-                <div className="text-sm font-bold">{p.value}</div>
-                <div className="text-xs mt-1 leading-snug font-medium opacity-75">{p.note}</div>
-              </div>
-            );
-          })}
+          {m.picks.map((p, i) => (
+            <PickItem key={i} p={p} />
+          ))}
         </div>
+
+        {/* Árbitro */}
+        {m.referee && (
+          <div className="mt-4">
+            <RefereeBlock referee={m.referee} />
+          </div>
+        )}
 
         {/* Combos */}
         {m.combos.length > 0 && (
@@ -97,38 +100,11 @@ function MatchPicks({ m }: { m: PickMatch }) {
 
         {/* Avoid */}
         {m.avoid.length > 0 && (
-          <div className="lego-block--sm lego-red mt-4 p-3">
-            <div className="text-xs font-bold mb-1.5 uppercase">⚠️ Evitar</div>
-            <ul className="text-xs space-y-1 font-medium on-dark-muted">
-              {m.avoid.map((a, i) => (
-                <li key={i}>• {a}</li>
-              ))}
-            </ul>
+          <div className="mt-4">
+            <AvoidBlock avoid={m.avoid} />
           </div>
         )}
       </div>
     </article>
-  );
-}
-
-function ComboCard({ combo, highlight }: { combo: Combo; highlight?: boolean }) {
-  // Combo recomendado = bloque púrpura (blanco); mega combo destacado = gold (ink).
-  return (
-    <div className={`lego-block--sm ${highlight ? "lego-gold" : "lego-purple"} p-3`}>
-      <div className="flex items-center justify-between gap-2 mb-2">
-        <span className="text-sm font-bold">{combo.title}</span>
-        <span className="text-sm font-mono font-bold">{combo.odds}</span>
-      </div>
-      <ul className="text-xs space-y-1 mb-2">
-        {combo.legs.map((l, i) => (
-          <li key={i} className="flex gap-1.5">
-            <span className="font-bold">✓</span>
-            <span className="font-medium">{l}</span>
-          </li>
-        ))}
-      </ul>
-      <div className={`text-[11px] font-semibold ${highlight ? "opacity-70" : "on-dark-muted"}`}>Riesgo: {combo.risk}</div>
-      <div className={`text-xs mt-1 leading-snug font-medium ${highlight ? "opacity-70" : "on-dark-muted"}`}>{combo.note}</div>
-    </div>
   );
 }

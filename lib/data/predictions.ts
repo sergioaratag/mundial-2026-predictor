@@ -79,14 +79,14 @@ export const KLEMENT_RANKING: RankTeam[] = [
 // Colores de barra por posición: 1=gold, 2=emerald, 3=purple, 4=red,
 // 5-8=tonos atenuados.
 export const RANK_BAR_COLORS = [
-  "var(--gold)",
-  "var(--emerald)",
-  "var(--purple)",
-  "var(--red)",
-  "rgba(212,168,67,0.5)",
-  "rgba(0,197,102,0.45)",
-  "rgba(91,33,214,0.5)",
-  "rgba(216,31,38,0.45)",
+  "var(--orange)",
+  "var(--lime)",
+  "var(--purple-deep)",
+  "var(--red-main)",
+  "rgba(233,90,41,0.5)",
+  "rgba(183,213,69,0.5)",
+  "rgba(93,25,229,0.5)",
+  "rgba(211,48,32,0.5)",
 ];
 
 // ── Bloque 4: Factor climático + Cooling Break ───────────────────────────

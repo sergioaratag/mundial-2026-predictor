@@ -1,140 +1,139 @@
 @import "tailwindcss";
 
 :root {
-  /* ── Paleta oficial Mundial 2026 — estilo BLOQUES LEGO ── */
-  --bg-page: #fafaf7; /* fondo general claro (los bloques de color son el protagonista) */
-  --ink: #1a1a1a; /* texto principal / bordes / sombras */
-  --muted: #6b6b63; /* texto secundario sobre bloques claros */
+  /* ── Paleta Mundial 2026 — NEÓN MINIMALISTA NOCTURNO ── */
+  --red-main: #d33020; /* acento primario / marca / urgencia */
+  --red-dark: #701f14;
+  --wine: #a3281e;
+  --orange: #e95a29; /* acento cálido / hover */
+  --blue-deep: #3552f3; /* frío principal / informativo */
+  --purple-deep: #5d19e5; /* frío secundario / premium */
+  --lilac: #b095f6; /* texto secundario / muted */
+  --lime: #b7d545; /* éxito / confianza alta */
+  --yellow-green: #dbe15c; /* advertencia suave / confianza media */
+  --turquoise: #87e7df; /* dato destacado / brillos */
+  --white: #fcfbfa; /* texto principal */
+  --ink: #212429; /* base del fondo */
 
-  --purple: #5b21d6;
-  --purple-dark: #3d1694;
-  --maroon: #7a1212;
-  --maroon-dark: #4d0b0b;
-  --red: #d81f26;
-  --red-dark: #8e1418;
-  --emerald: #00c566;
-  --emerald-dark: #00803f;
-  --lime: #b6e000;
-  --lime-dark: #7a9600;
-  --gold: #d4a843;
-  --gold-dark: #9a7726;
-  --gold-light: #f0d88a;
-  --white: #ffffff;
+  --surface: #2a2d33; /* tarjetas */
+  --surface-2: #31343b; /* sub-tarjetas / chips */
 
-  /* Indicadores funcionales de confianza (NO son colores de marca) */
-  --green: #22c55e;
-  --amber: #f59e0b;
+  /* Glow reutilizable por tono */
+  --glow-red: 0 0 24px rgba(211, 48, 32, 0.16);
+  --glow-blue: 0 0 24px rgba(53, 82, 243, 0.16);
+  --glow-purple: 0 0 24px rgba(93, 25, 229, 0.18);
+  --glow-turq: 0 0 22px rgba(135, 231, 223, 0.16);
+  --glow-lime: 0 0 20px rgba(183, 213, 69, 0.16);
 
-  /* ── Tokens de bloque ── */
-  --block-border: 3px;
-  --block-radius: 8px;
-  --block-shadow: 4px 4px 0 var(--ink);
-  --block-shadow-sm: 2px 2px 0 var(--ink);
-
-  --font-display: var(--font-archivo-black), system-ui, -apple-system, sans-serif;
-  --font-body: var(--font-inter), system-ui, -apple-system, sans-serif;
-}
-
-@media (max-width: 640px) {
-  :root {
-    --block-shadow: 3px 3px 0 var(--ink);
-  }
+  --font-display: var(--font-rajdhani), system-ui, sans-serif;
+  --font-body: var(--font-manrope), system-ui, -apple-system, sans-serif;
 }
 
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  background: var(--bg-page);
-  color: var(--ink);
+  color: var(--white);
+  background-color: var(--ink);
 }
 
+/* Blobs de luz difusa (neón distante reflejado). Muy sutiles, fijos. */
 body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(60vw 60vw at 12% -8%, rgba(211, 48, 32, 0.12), transparent 60%),
+    radial-gradient(55vw 55vw at 92% 8%, rgba(53, 82, 243, 0.11), transparent 60%),
+    radial-gradient(60vw 60vw at 82% 92%, rgba(93, 25, 229, 0.12), transparent 60%),
+    radial-gradient(45vw 45vw at 8% 78%, rgba(135, 231, 223, 0.08), transparent 60%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 * {
   box-sizing: border-box;
 }
 
-/* Títulos en la tipografía display (bold/geométrica). */
+/* Tipografía display en títulos y números. */
 h1, h2, h3, .font-display {
   font-family: var(--font-display);
-  letter-spacing: -0.01em;
-  font-weight: 400; /* Archivo Black ya es peso "black" */
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
-/* ── Bloque LEGO base ── */
-.lego-block {
-  background: var(--white);
-  color: var(--ink);
-  border: var(--block-border) solid var(--ink);
-  border-radius: var(--block-radius);
-  box-shadow: var(--block-shadow);
+/* ── Tarjeta neón ── */
+.neon-card {
+  background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  box-shadow: var(--glow-blue), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+.neon-sub {
+  background: var(--surface-2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
 }
 
-/* Mini-bloque (badges, chips, fichas) */
-.lego-block--sm {
-  border: 2px solid var(--ink);
-  border-radius: 6px;
-  box-shadow: var(--block-shadow-sm);
-}
+/* Glows temáticos (override del box-shadow de la tarjeta) */
+.glow-red    { box-shadow: var(--glow-red),    inset 0 1px 0 rgba(255,255,255,0.04); }
+.glow-blue   { box-shadow: var(--glow-blue),   inset 0 1px 0 rgba(255,255,255,0.04); }
+.glow-purple { box-shadow: var(--glow-purple), inset 0 1px 0 rgba(255,255,255,0.04); }
+.glow-turq   { box-shadow: var(--glow-turq),   inset 0 1px 0 rgba(255,255,255,0.04); }
+.glow-lime   { box-shadow: var(--glow-lime),   inset 0 1px 0 rgba(255,255,255,0.04); }
 
-/* Interactivo: se "hunde" hacia la sombra al presionar. */
-.lego-pressable {
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
+/* Interactivo: el glow se intensifica al pasar/encender. */
+.neon-press {
+  transition: box-shadow 0.18s ease, transform 0.12s ease, background 0.18s ease;
   cursor: pointer;
 }
-.lego-pressable:hover {
-  transform: translate(2px, 2px);
-  box-shadow: var(--block-shadow-sm);
+.neon-press:hover {
+  box-shadow: 0 0 30px rgba(233, 90, 41, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transform: translateY(-1px);
 }
-.lego-pressable:active {
-  transform: translate(3px, 3px);
-  box-shadow: 1px 1px 0 var(--ink);
-}
-.lego-block--sm.lego-pressable:hover {
-  transform: translate(1px, 1px);
-  box-shadow: 1px 1px 0 var(--ink);
+.neon-press:active { transform: translateY(0); }
+
+/* Texto secundario en lila (no gris). */
+.muted { color: var(--lilac); }
+
+/* Chips de dato pequeños */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 8px;
+  padding: 0.15rem 0.5rem;
+  font-size: 11px;
+  font-weight: 600;
 }
 
-/* ── Variantes de color (background + texto con contraste correcto) ── */
-.lego-white        { background: var(--white);       color: var(--ink); }
-.lego-page         { background: var(--bg-page);      color: var(--ink); }
-.lego-purple       { background: var(--purple);       color: var(--white); }
-.lego-maroon       { background: var(--maroon);       color: var(--white); }
-.lego-red          { background: var(--red);          color: var(--white); }
-.lego-emerald      { background: var(--emerald);      color: var(--ink); }   /* bright → texto ink (~6.9:1) */
-.lego-emerald-dark { background: var(--emerald-dark); color: var(--white); } /* deep → texto blanco */
-.lego-lime         { background: var(--lime);         color: var(--ink); }
-.lego-gold         { background: var(--gold);         color: var(--ink); }
-
-/* Texto secundario según el fondo */
-.on-dark-muted  { color: rgba(255, 255, 255, 0.82); }
-.on-light-muted { color: var(--muted); }
-
-/* ── Animaciones / utilidades ── */
-@keyframes mp-pulse {
-  0%, 100% { opacity: 0.55; }
-  50% { opacity: 1; }
+/* ── Glow pulsante (signature) ── */
+@keyframes mp-glow-pulse {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(233, 90, 41, 0.45)) drop-shadow(0 0 10px rgba(211, 48, 32, 0.25)); }
+  50%      { filter: drop-shadow(0 0 10px rgba(233, 90, 41, 0.85)) drop-shadow(0 0 22px rgba(211, 48, 32, 0.5)); }
 }
+.mp-trophy-glow { animation: mp-glow-pulse 3.6s ease-in-out infinite; }
+
+@keyframes mp-dot-pulse {
+  0%, 100% { box-shadow: 0 0 4px 0 rgba(211, 48, 32, 0.6); opacity: 1; }
+  50%      { box-shadow: 0 0 10px 2px rgba(211, 48, 32, 0.9); opacity: 0.7; }
+}
+.mp-live-dot { animation: mp-dot-pulse 1.8s ease-in-out infinite; }
+
+/* Skeleton oscuro */
+@keyframes mp-pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.85; } }
 .mp-skeleton {
-  background: var(--white);
-  border: var(--block-border) solid var(--ink);
-  border-radius: var(--block-radius);
-  box-shadow: var(--block-shadow);
+  background: var(--surface);
+  border-radius: 14px;
+  box-shadow: var(--glow-blue);
   animation: mp-pulse 1.3s ease-in-out infinite;
 }
 
-@keyframes mp-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.25; }
-}
-.mp-live-dot { animation: mp-blink 1.1s ease-in-out infinite; }
+/* Scrollbar fino */
+.mp-scroll::-webkit-scrollbar { height: 6px; }
+.mp-scroll::-webkit-scrollbar-thumb { background: rgba(176, 149, 246, 0.35); border-radius: 4px; }
 
-.mp-scroll::-webkit-scrollbar { height: 8px; }
-.mp-scroll::-webkit-scrollbar-thumb {
-  background: var(--ink);
-  border-radius: 4px;
+/* Overlay del modal */
+.mp-overlay {
+  background: rgba(10, 11, 13, 0.72);
+  backdrop-filter: blur(6px);
 }

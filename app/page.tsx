@@ -23,7 +23,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen pb-16" style={{ background: "var(--bg-page)" }}>
+    <main className="min-h-screen pb-16">
       <PanelHeader />
       <TabNav active={tab} onChange={setTab} />
       <div className="max-w-4xl mx-auto">

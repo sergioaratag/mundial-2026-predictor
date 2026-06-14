@@ -51,7 +51,11 @@ export function TabCalendario() {
           const isSel = d === selected;
           const st = matchStatus(d, today);
           const has = CALENDAR.some((m) => m.date === d);
-          const cls = isSel ? "lego-gold" : st === "today" ? "lego-lime" : "lego-white";
+          const style: React.CSSProperties = isSel
+            ? { background: "linear-gradient(135deg, rgba(93,25,229,0.55), rgba(53,82,243,0.4))", color: "var(--white)", boxShadow: "0 0 18px rgba(93,25,229,0.45)" }
+            : st === "today"
+              ? { background: "rgba(183,213,69,0.1)", color: "var(--lime)", boxShadow: "var(--glow-lime)" }
+              : { background: "var(--surface-2)", color: "var(--lilac)", opacity: has ? 1 : 0.55 };
           return (
             <button
               key={d}
@@ -59,8 +63,8 @@ export function TabCalendario() {
                 chipRefs.current[d] = el;
               }}
               onClick={() => setSelected(d)}
-              className={`lego-block--sm lego-pressable shrink-0 px-3 py-1.5 text-sm font-bold ${cls}`}
-              style={{ opacity: has || isSel ? 1 : 0.55 }}
+              className="neon-press shrink-0 px-3 py-1.5 rounded-lg text-sm font-bold font-display"
+              style={style}
             >
               {chipLabel(d)}
               {st === "today" && !isSel && <span className="ml-1">•</span>}
@@ -71,11 +75,11 @@ export function TabCalendario() {
 
       {/* Encabezado del día + filtro de grupo */}
       <div className="flex items-center justify-between gap-3 mt-4 mb-3">
-        <h2 className="text-base">{longLabel(selected)}</h2>
+        <h2 className="text-base text-white">{longLabel(selected)}</h2>
         <select
           value={group}
           onChange={(e) => setGroup(e.target.value)}
-          className="lego-block--sm lego-white text-xs px-2 py-1.5 outline-none font-bold cursor-pointer"
+          className="neon-sub text-xs px-2 py-1.5 outline-none font-semibold cursor-pointer text-white"
         >
           <option value="all">Todos los grupos</option>
           {groups.map((g) => (
@@ -94,7 +98,7 @@ export function TabCalendario() {
           ))}
         </div>
       ) : (
-        <div className="lego-block lego-page px-4 py-8 text-center text-sm font-semibold">
+        <div className="neon-card px-4 py-8 text-center text-sm font-semibold muted">
           No hay partidos para esta fecha con el filtro seleccionado.
         </div>
       )}
