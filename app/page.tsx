@@ -9,6 +9,7 @@ import { TabPicks } from "@/components/tabs/TabPicks";
 import { TabCalendario } from "@/components/tabs/TabCalendario";
 import { TabGrupos } from "@/components/tabs/TabGrupos";
 import { TabNoticias } from "@/components/tabs/TabNoticias";
+import { TabWhiteHouse } from "@/components/tabs/TabWhiteHouse";
 import { BackToTop } from "@/components/BackToTop";
 import { SkeletonList } from "@/components/Skeleton";
 
@@ -41,8 +42,10 @@ export default function Home() {
           <TabCalendario />
         ) : tab === "grupos" ? (
           <TabGrupos />
-        ) : (
+        ) : tab === "noticias" ? (
           <TabNoticias />
+        ) : (
+          <TabWhiteHouse />
         )}
       </div>
       <BackToTop />

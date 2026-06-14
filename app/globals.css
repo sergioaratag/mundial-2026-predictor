@@ -24,6 +24,7 @@
   --glow-purple: 0 0 24px rgba(93, 25, 229, 0.18);
   --glow-turq: 0 0 22px rgba(135, 231, 223, 0.16);
   --glow-lime: 0 0 20px rgba(183, 213, 69, 0.16);
+  --glow-orange: 0 0 24px rgba(233, 90, 41, 0.22);
 
   --font-display: var(--font-rajdhani), system-ui, sans-serif;
   --font-body: var(--font-manrope), system-ui, -apple-system, sans-serif;
@@ -80,6 +81,7 @@ h1, h2, h3, .font-display {
 .glow-purple { box-shadow: var(--glow-purple), inset 0 1px 0 rgba(255,255,255,0.04); }
 .glow-turq   { box-shadow: var(--glow-turq),   inset 0 1px 0 rgba(255,255,255,0.04); }
 .glow-lime   { box-shadow: var(--glow-lime),   inset 0 1px 0 rgba(255,255,255,0.04); }
+.glow-orange { box-shadow: var(--glow-orange), inset 0 1px 0 rgba(255,255,255,0.04); }
 
 /* Interactivo: el glow se intensifica al pasar/encender. */
 .neon-press {

@@ -1,6 +1,6 @@
 "use client";
 
-export type TabKey = "resumen" | "predicciones" | "picks" | "calendario" | "grupos" | "noticias";
+export type TabKey = "resumen" | "predicciones" | "picks" | "calendario" | "grupos" | "noticias" | "whitehouse";
 
 export const TABS: { key: TabKey; label: string; icon: string }[] = [
   { key: "resumen", label: "Resumen", icon: "🏠" },
@@ -9,6 +9,7 @@ export const TABS: { key: TabKey; label: string; icon: string }[] = [
   { key: "calendario", label: "Calendario", icon: "📅" },
   { key: "grupos", label: "Grupos", icon: "🗂️" },
   { key: "noticias", label: "Noticias", icon: "📰" },
+  { key: "whitehouse", label: "White House", icon: "🥊" },
 ];
 
 export function TabNav({ active, onChange }: { active: TabKey; onChange: (t: TabKey) => void }) {
