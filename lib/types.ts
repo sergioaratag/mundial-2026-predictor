@@ -72,3 +72,45 @@ export interface Group {
   letter: string; // "A"
   teams: { name: string; flag: string; confirmed: boolean }[];
 }
+
+// ── Picks de doble fuente (Klement / Claude) — jornadas modelo v2 ──
+export interface SourcePick {
+  market: string;
+  selection: string;
+  driver?: string; // razonamiento de Klement
+  note?: string; // matiz / valor de Claude
+}
+
+export interface DualReferee {
+  name: string | null;
+  avgCards?: string | null;
+  avgFouls?: string;
+}
+
+export interface DualOdds {
+  home?: number | null;
+  draw?: number | null;
+  away?: number | null;
+}
+
+export interface DualMatch {
+  match: string; // "España vs Cabo Verde"
+  venue?: string;
+  kickoff?: string; // ISO con offset -04:00 (hora Bolivia)
+  referee?: DualReferee;
+  odds?: DualOdds;
+  stats?: Record<string, number>;
+  result?: string | null;
+  picks?: {
+    klement?: SourcePick;
+    claude?: SourcePick;
+  };
+}
+
+export interface DualJornada {
+  jornada: number;
+  fecha: string; // "2026-06-15"
+  tipo: string; // "picks"
+  partidos: DualMatch[];
+  combos?: Combo[]; // se respetan los de data; no se generan automáticamente
+}

@@ -1,4 +1,4 @@
-import type { PicksDay } from "@/lib/types";
+import type { PicksDay, DualJornada } from "@/lib/types";
 
 // Picks por jornada. Estructura genérica: agregar días sin tocar componentes.
 // (Ver "Rutina diaria" en CLAUDE.md.)
@@ -521,3 +521,101 @@ export const PICKS: PicksDay[] = [
     },
   },
 ];
+
+// ── Jornadas modelo v2: doble fuente (Klement / Claude) ──
+export const j15: DualJornada = {
+  jornada: 15,
+  fecha: "2026-06-15",
+  tipo: "picks",
+  partidos: [
+    {
+      match: "España vs Cabo Verde",
+      venue: "Mercedes-Benz (Atlanta)",
+      kickoff: "2026-06-15T12:00:00-04:00",
+      referee: { name: "Adham Makhadmeh" },
+      odds: { home: 1.1, draw: null, away: 38.0 },
+      picks: {
+        klement: { market: "1X2", selection: "España", driver: "ranking #1 + PIB + campeón Euro" },
+        claude: { market: "Hándicap", selection: "España -1.5", note: "1.10 sin valor; España vino sin gol en prep (0-0 Egipto, 1-1 Irak); CV compacto" },
+      },
+    },
+    {
+      match: "Bélgica vs Egipto",
+      venue: "Lumen Field (Seattle)",
+      kickoff: "2026-06-15T15:00:00-04:00",
+      referee: { name: "Ramon Abatti" },
+      odds: { home: 1.66, draw: 4.01, away: 5.8 },
+      picks: {
+        klement: { market: "1X2", selection: "Bélgica", driver: "ranking + PIB + experiencia" },
+        claude: { market: "BTTS", selection: "Sí", note: "Bélgica defensa veterana; Salah amenaza; 1.66 sin gran valor" },
+      },
+    },
+    {
+      match: "Arabia Saudí vs Uruguay",
+      venue: "Hard Rock (Miami)",
+      kickoff: "2026-06-15T18:00:00-04:00",
+      referee: { name: null },
+      odds: { home: null, draw: null, away: null },
+      picks: {
+        klement: { market: "1X2", selection: "Uruguay", driver: "ranking + PIB > Arabia" },
+        claude: { market: "1X2 + Goles", selection: "Uruguay gana + Under 2.5", note: "calor de Miami iguala; Arabia repliega" },
+      },
+    },
+    {
+      match: "Irán vs Nueva Zelanda",
+      venue: "SoFi (LA)",
+      kickoff: "2026-06-15T21:00:00-04:00",
+      referee: { name: null },
+      odds: { home: null, draw: null, away: null },
+      picks: {
+        klement: { market: "1X2", selection: "Irán", driver: "ranking + experiencia" },
+        claude: { market: "1X2 + Goles", selection: "Irán gana + Under 2.5", note: "Irán sólido atrás; partido cerrado" },
+      },
+    },
+  ],
+};
+
+export const j16: DualJornada = {
+  jornada: 16,
+  fecha: "2026-06-16",
+  tipo: "picks",
+  partidos: [
+    {
+      match: "Francia vs Senegal",
+      venue: "MetLife (NJ)",
+      kickoff: "2026-06-16T15:00:00-04:00",
+      referee: { name: "Alireza Faghani", avgCards: "3.5–4.3", avgFouls: "~20" },
+      odds: { home: 1.5, draw: 4.46, away: 7.31 },
+      picks: {
+        klement: { market: "1X2", selection: "Francia", driver: "ranking FIFA + PIB + sede" },
+        claude: { market: "Hándicap", selection: "Senegal +1.5", note: "1.50 sin valor; Senegal nivel alto, Francia floja atrás" },
+      },
+    },
+    {
+      match: "Irak vs Noruega",
+      venue: "Boston (Foxborough)",
+      kickoff: "2026-06-16T18:00:00-04:00",
+      referee: { name: "Pierre Atcho", avgCards: "~2.6 (muestra chica)" },
+      stats: { cornersIrakConcede: 5.4, cornersNoruega: 5 },
+      odds: { home: 13.0, draw: 7.0, away: 1.4 },
+      picks: {
+        klement: { market: "1X2", selection: "Noruega", driver: "ranking + PIB + experiencia" },
+        claude: { market: "Córners Noruega", selection: "Over 5.5", note: "Irak concede 5.4; Noruega domina banda. 2º: Haaland anota" },
+      },
+    },
+    {
+      match: "Argentina vs Argelia",
+      venue: "Arrowhead (KC)",
+      kickoff: "2026-06-16T21:00:00-04:00",
+      referee: { name: "Szymon Marciniak", avgCards: null },
+      odds: { home: null, draw: null, away: null },
+      picks: {
+        klement: { market: "1X2", selection: "Argentina", driver: "ranking + PIB + campeón vigente" },
+        claude: { market: "1X2/Hándicap", selection: "Argentina gana (o Argelia +1.5 por cuota)", note: "Argelia llegó 8-1-1; -1.5 arriesgado en debut" },
+      },
+    },
+  ],
+};
+
+// Lista de jornadas modelo v2 (orden cronológico).
+export const DUAL_JORNADAS: DualJornada[] = [j15, j16];

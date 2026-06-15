@@ -56,6 +56,49 @@ export function ComboCard({ combo, highlight }: { combo: Combo; highlight?: bool
   );
 }
 
+// Combo reestructurado: patas (✓), cuota total y nº de patas. (CHANGE 3)
+export function ComboBlock({ combo, highlight }: { combo: Combo; highlight?: boolean }) {
+  return (
+    <div
+      className="neon-sub p-3"
+      style={highlight ? { boxShadow: "var(--glow-purple)", borderColor: "rgba(93,25,229,0.45)" } : undefined}
+    >
+      <div className="flex items-center justify-between gap-2 mb-2">
+        <span className="text-sm font-bold" style={{ color: highlight ? "var(--lilac)" : "var(--white)" }}>{combo.title}</span>
+        <span className="text-base font-mono font-bold" style={{ color: "var(--turquoise)" }}>{combo.odds}</span>
+      </div>
+      <ul className="text-xs space-y-1.5 mb-2.5">
+        {combo.legs.map((l, i) => (
+          <li key={i} className="flex gap-1.5">
+            <span style={{ color: "var(--lime)" }}>✓</span>
+            <span className="text-white/90">{l}</span>
+          </li>
+        ))}
+      </ul>
+      <div className="flex flex-wrap gap-1.5">
+        <span className="chip" style={{ background: "var(--surface-2)", color: "var(--white)" }}>{combo.legs.length} {combo.legs.length === 1 ? "pata" : "patas"}</span>
+        <span className="chip" style={{ background: "rgba(135,231,223,0.08)", color: "var(--turquoise)" }}>Cuota total {combo.odds}</span>
+        <span className="chip" style={{ background: "var(--surface-2)", color: "var(--lilac)" }}>Riesgo: {combo.risk}</span>
+      </div>
+      {combo.note && <div className="text-xs mt-2 leading-snug muted">{combo.note}</div>}
+    </div>
+  );
+}
+
+// Nota fija de gestión de riesgo para los bloques de combos. (CHANGE 3)
+export function ComboAdvisory() {
+  return (
+    <div
+      className="neon-sub p-3"
+      style={{ borderColor: "rgba(233,90,41,0.40)", boxShadow: "var(--glow-orange)" }}
+    >
+      <div className="text-xs leading-snug font-semibold" style={{ color: "var(--orange)" }}>
+        ℹ️ Más patas = más margen de la casa. Recomendado: máx. 2 patas.
+      </div>
+    </div>
+  );
+}
+
 export function AvoidBlock({ avoid }: { avoid: string[] }) {
   if (!avoid.length) return null;
   return (
