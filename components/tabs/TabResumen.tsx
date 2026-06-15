@@ -2,15 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { CALENDAR } from "@/lib/data/calendar";
-import { PICKS } from "@/lib/data/picks";
-import { findNextMatch, humanUntil, todayISO, type NextMatch } from "@/lib/dates";
+import { DUAL_JORNADAS } from "@/lib/data/picks";
+import { findNextMatch, humanUntil, todayISO, longLabel, type NextMatch } from "@/lib/dates";
 import type { TabKey } from "@/components/TabNav";
-import type { PicksDay } from "@/lib/types";
-import { JornadaModal } from "@/components/JornadaModal";
+
+const JORNADAS = [...DUAL_JORNADAS].sort((a, b) => a.jornada - b.jornada);
+const kickoffTime = (iso?: string) => iso?.match(/T(\d{2}:\d{2})/)?.[1] ?? "";
 
 export function TabResumen({ onGo }: { onGo: (t: TabKey) => void }) {
   const [next, setNext] = useState<NextMatch>(null);
-  const [modalDay, setModalDay] = useState<PicksDay | null>(null);
   useEffect(() => setNext(findNextMatch(CALENDAR)), []);
 
   const today = todayISO();
@@ -35,34 +35,35 @@ export function TabResumen({ onGo }: { onGo: (t: TabKey) => void }) {
         </div>
       )}
 
-      {/* Jornadas — cards clickeables que abren el modal de detalle */}
+      {/* Jornadas — cards que llevan a la pestaña Picks */}
       <div>
         <h2 className="text-base mb-3 text-white">Jornadas</h2>
         <div className="flex flex-col gap-3">
-          {PICKS.map((d) => {
-            const isToday = d.date === today;
+          {JORNADAS.map((d) => {
+            const isToday = d.fecha === today;
+            const mega = d.combos?.[0];
             return (
               <button
-                key={d.id}
-                onClick={() => setModalDay(d)}
+                key={d.jornada}
+                onClick={() => onGo("picks")}
                 className={`neon-card neon-press p-4 text-left ${isToday ? "glow-red" : ""}`}
               >
                 <div className="flex items-center justify-between gap-2">
-                  <h3 className="text-base text-white">{d.label}</h3>
-                  <span className="chip" style={{ background: "var(--surface-2)", color: "var(--turquoise)" }}>Ver detalle →</span>
+                  <h3 className="text-base text-white">{`Jornada ${d.jornada} · ${longLabel(d.fecha)}`}</h3>
+                  <span className="chip" style={{ background: "var(--surface-2)", color: "var(--turquoise)" }}>Ver picks →</span>
                 </div>
                 <ul className="flex flex-col gap-1 mt-2">
-                  {d.matches.map((m, i) => (
+                  {d.partidos.map((m, i) => (
                     <li key={i} className="flex items-center gap-2 text-sm">
-                      <span className="font-mono font-bold text-xs" style={{ color: "var(--turquoise)" }}>{m.time_bolivia}</span>
-                      <span className="text-white/90 truncate">{m.home_flag} {m.home} vs {m.away} {m.away_flag}</span>
-                      <span className="text-xs ml-auto muted shrink-0">{m.picks.length} picks</span>
+                      <span className="font-mono font-bold text-xs" style={{ color: "var(--turquoise)" }}>{kickoffTime(m.kickoff)}</span>
+                      <span className="text-white/90 truncate">{m.match}</span>
+                      <span className="text-xs ml-auto muted shrink-0">Klement + Claude</span>
                     </li>
                   ))}
                 </ul>
-                {d.megaCombo && (
+                {mega && (
                   <div className="text-xs mt-2 font-semibold" style={{ color: "var(--lilac)" }}>
-                    ★ {d.megaCombo.title} <span className="font-mono" style={{ color: "var(--turquoise)" }}>{d.megaCombo.odds}</span>
+                    ★ {mega.title} <span className="font-mono" style={{ color: "var(--turquoise)" }}>{mega.odds}</span>
                   </div>
                 )}
               </button>
@@ -83,8 +84,6 @@ export function TabResumen({ onGo }: { onGo: (t: TabKey) => void }) {
           <div className="text-xs muted">Los 12 grupos del Mundial</div>
         </button>
       </div>
-
-      {modalDay && <JornadaModal day={modalDay} onClose={() => setModalDay(null)} />}
     </div>
   );
 }
