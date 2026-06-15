@@ -241,6 +241,8 @@ export const j16: DualJornada = {
       kickoff: "2026-06-16T15:00:00-04:00",
       referee: { name: "Alireza Faghani", avgCards: "3.5–4.3", avgFouls: "~20" },
       odds: { home: 1.5, draw: 4.46, away: 7.31 },
+      oddsNote: "Francia favorita amplia (1.50), empate 4.46, Senegal 7.31. El mercado ya recoge el dominio galo: poco valor en el directo.",
+      preview: "Francia llega como n.º1 FIFA y subcampeona 2022, invicta en 4 de sus últimos 5 (3-1 a Irlanda del Norte; cayó 2-1 con Costa de Marfil). Mbappé arrastró molestia muscular. Senegal terminó invicto su grupo de clasificación (solo 3 goles encajados en 10 partidos) pero mostró fragilidad en amistosos (3-2 vs EE.UU., 0-0 vs Arabia); Koulibaly y Mendy vuelven y Mané llega fino.",
       avoid: [
         "Mbappé arrastró molestia muscular (muslo): confirmar que sea titular y al 100%",
         "Senegal mostró fragilidad defensiva en amistosos (3-2 vs EE.UU., 0-0 vs Arabia), pero Koulibaly y Mendy vuelven para este partido",
@@ -253,6 +255,10 @@ export const j16: DualJornada = {
           selection: "Francia",
           driver: "FIFA #1 + PIB + sede fría",
           fullAnalysis: "El modelo favorece a Francia por ranking, PIB y profundidad de plantel; Francia no pierde su estreno mundialista desde 2002.",
+          options: [
+            { market: "1X2", selection: "Francia gana", confidence: "alta" },
+            { market: "Totales", selection: "Over 2.5", confidence: "media" },
+          ],
         },
         claude: {
           market: "Hándicap",
@@ -277,6 +283,8 @@ export const j16: DualJornada = {
       referee: { name: "Pierre Atcho", avgCards: "~2.6 (muestra chica)" },
       stats: { cornersIrakConcede: 5.4, cornersNoruega: 5 },
       odds: { home: 13.0, draw: 7.0, away: 1.4 },
+      oddsNote: "Noruega favorita fuerte (~1.40), empate ~7, Irak ~13. Ganar no paga; el valor está en córners y goleador.",
+      preview: "Noruega llega lanzada con Haaland (18 goles en clasificación) y Ødegaard, de vuelta a un Mundial tras casi 30 años. Irak regresa tras casi 40 años y probablemente se repliegue para achicar espacios.",
       avoid: [
         "Atcho tiene muestra de datos chica: tómalo como indicativo",
         "Irak vuelve a un Mundial tras casi 40 años: puede replegarse mucho → cuidado con overs de goles",
@@ -288,6 +296,10 @@ export const j16: DualJornada = {
           selection: "Noruega",
           driver: "ranking + PIB + experiencia",
           fullAnalysis: "Noruega favorita amplia por nivel y profundidad; Haaland marcó 18 en la clasificación.",
+          options: [
+            { market: "1X2", selection: "Noruega gana", confidence: "alta" },
+            { market: "Totales", selection: "Over 2.5", confidence: "media" },
+          ],
         },
         claude: {
           market: "Córners Noruega",
@@ -311,6 +323,8 @@ export const j16: DualJornada = {
       kickoff: "2026-06-16T21:00:00-04:00",
       referee: { name: "Szymon Marciniak", avgCards: null },
       odds: { home: null, draw: null, away: null },
+      oddsNote: "Argentina favorita clara (cuota exacta por confirmar en Metabet).",
+      preview: "Argentina debuta como campeona vigente; por ver la gestión de minutos de Messi. Argelia llegó fuerte (8-1-1 en eliminatorias) con Mahrez y un equipo de presión alta bajo Petković: rival incómodo para un estreno.",
       avoid: [
         "Marciniak (árbitro de la final de Qatar 2022) es firme en partidos grandes, pero su promedio exacto de tarjetas está pendiente: no fijes overs de amarillas a ciegas",
         "Argelia llegó fuerte (8-1-1 en eliminatorias, Mahrez, Petković con presión alta): NO es relleno, cuidado con el -1.5 a Argentina en un debut",
@@ -322,6 +336,9 @@ export const j16: DualJornada = {
           selection: "Argentina",
           driver: "ranking + PIB + campeón vigente",
           fullAnalysis: "El modelo pone a Argentina como favorita clara por ranking, plantel y condición de campeón vigente.",
+          options: [
+            { market: "1X2", selection: "Argentina gana", confidence: "alta" },
+          ],
         },
         claude: {
           market: "1X2/Hándicap",

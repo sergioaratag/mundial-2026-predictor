@@ -112,6 +112,8 @@ export interface DualMatch {
   kickoff?: string; // ISO con offset -04:00 (hora Bolivia)
   referee?: DualReferee;
   odds?: DualOdds;
+  oddsNote?: string; // lectura corta del mercado ("Qué dicen las casas")
+  preview?: string; // "Cómo llegan": resumen de ambas selecciones
   stats?: Record<string, number>;
   result?: string | null;
   avoid?: string[]; // "EVITAR / A tener en cuenta": lesiones, bajas, historial

@@ -126,7 +126,7 @@ function SourceCol({ source, pick, onOpen }: { source: "klement" | "claude"; pic
 }
 
 function MatchCard({ m }: { m: DualMatch }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<"klement" | "claude" | null>(null);
   const time = m.kickoff?.match(/T(\d{2}:\d{2})/)?.[1] ?? null;
   const ref = m.referee;
   const refName = ref?.name ?? null;
@@ -143,13 +143,15 @@ function MatchCard({ m }: { m: DualMatch }) {
   const k = m.picks?.klement;
   const c = m.picks?.claude;
   const hasDetail = !!(
+    m.preview ||
+    m.oddsNote ||
     (m.avoid && m.avoid.length) ||
     k?.fullAnalysis ||
     c?.fullAnalysis ||
+    (k?.options && k.options.length) ||
     (c?.options && c.options.length) ||
     c?.comboRecomendado
   );
-  const onOpen = hasDetail ? () => setOpen(true) : undefined;
 
   const chipSurface = { background: "var(--surface-2)", color: "var(--lilac)" };
   const chipTurq = { background: "rgba(135,231,223,0.08)", color: "var(--turquoise)" };
@@ -187,12 +189,12 @@ function MatchCard({ m }: { m: DualMatch }) {
 
       <div className="p-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {k && <SourceCol source="klement" pick={k} onOpen={onOpen} />}
-          {c && <SourceCol source="claude" pick={c} onOpen={onOpen} />}
+          {k && <SourceCol source="klement" pick={k} onOpen={hasDetail ? () => setOpen("klement") : undefined} />}
+          {c && <SourceCol source="claude" pick={c} onOpen={hasDetail ? () => setOpen("claude") : undefined} />}
         </div>
       </div>
 
-      {open && <MatchDetailModal m={m} onClose={() => setOpen(false)} />}
+      {open && <MatchDetailModal m={m} source={open} onClose={() => setOpen(null)} />}
     </article>
   );
 }

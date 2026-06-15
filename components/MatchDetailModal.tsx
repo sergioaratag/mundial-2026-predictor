@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect } from "react";
-import type { DualMatch, Band, SourcePick } from "@/lib/types";
+import type { DualMatch, Band, Option } from "@/lib/types";
 
-// Banda de respaldo → color neón (alta=lima, media=amarillo-verde, baja=lila).
-const BAND: Record<Band, { label: string; color: string; bg: string }> = {
-  alta: { label: "Alta", color: "var(--lime)", bg: "rgba(183,213,69,0.12)" },
-  media: { label: "Media", color: "var(--yellow-green)", bg: "rgba(219,225,92,0.12)" },
-  baja: { label: "Baja", color: "var(--lilac)", bg: "rgba(176,149,246,0.12)" },
+// Banda de respaldo → color (alta=verde, media=ámbar, baja=gris).
+const BAND: Record<Band, { label: string; color: string; bg: string; order: number }> = {
+  alta: { label: "Alta", color: "var(--lime)", bg: "rgba(183,213,69,0.12)", order: 0 },
+  media: { label: "Media", color: "#E8A33D", bg: "rgba(232,163,61,0.14)", order: 1 },
+  baja: { label: "Baja", color: "#98A0B3", bg: "rgba(152,160,178,0.14)", order: 2 },
 };
 
 const SRC = {
@@ -15,26 +15,27 @@ const SRC = {
   claude: { label: "Claude", color: "var(--turquoise)", icon: "🤖" },
 } as const;
 
-function SourceDetail({ src, pick }: { src: "klement" | "claude"; pick: SourcePick }) {
-  const meta = SRC[src];
-  const detail = pick.driver ?? pick.note;
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <div className="flex items-center gap-2 mb-1.5">
-        <span className="h-2 w-2 rounded-full" style={{ background: meta.color }} />
-        <span className="text-sm font-display font-bold" style={{ color: meta.color }}>{meta.icon} {meta.label}</span>
-        <span className="chip ml-auto" style={{ background: "var(--surface-2)", color: "var(--lilac)" }}>{pick.market}</span>
-      </div>
-      <div className="text-base font-bold text-white">{pick.selection}</div>
-      {detail && <div className="text-xs mt-1 leading-snug muted">{detail}</div>}
-      {pick.fullAnalysis && (
-        <p className="text-sm mt-2 leading-relaxed" style={{ color: "rgba(252,251,250,0.85)" }}>{pick.fullAnalysis}</p>
-      )}
+      <h4 className="text-xs font-bold uppercase tracking-wide mb-2" style={{ color: "var(--lilac)" }}>{title}</h4>
+      {children}
     </div>
   );
 }
 
-export function MatchDetailModal({ m, onClose }: { m: DualMatch; onClose: () => void }) {
+function oddsLine(m: DualMatch): string | null {
+  if (m.oddsNote) return m.oddsNote;
+  const o = m.odds;
+  if (!o) return null;
+  const parts: string[] = [];
+  if (o.home != null) parts.push(`local ${o.home.toFixed(2)}`);
+  if (o.draw != null) parts.push(`empate ${o.draw.toFixed(2)}`);
+  if (o.away != null) parts.push(`visita ${o.away.toFixed(2)}`);
+  return parts.length ? `Cuotas: ${parts.join(" · ")}.` : null;
+}
+
+export function MatchDetailModal({ m, source, onClose }: { m: DualMatch; source: "klement" | "claude"; onClose: () => void }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
@@ -45,11 +46,19 @@ export function MatchDetailModal({ m, onClose }: { m: DualMatch; onClose: () => 
     };
   }, [onClose]);
 
+  const meta = SRC[source];
   const time = m.kickoff?.match(/T(\d{2}:\d{2})/)?.[1] ?? null;
-  const k = m.picks?.klement;
-  const c = m.picks?.claude;
-  const options = c?.options ?? [];
-  const combo = c?.comboRecomendado;
+  const pick = m.picks?.[source];
+  const options: Option[] = pick?.options ? [...pick.options].sort((a, b) => BAND[a.confidence].order - BAND[b.confidence].order) : [];
+
+  const oddsChips: { label: string; val: number }[] = [];
+  if (m.odds?.home != null) oddsChips.push({ label: "1", val: m.odds.home });
+  if (m.odds?.draw != null) oddsChips.push({ label: "X", val: m.odds.draw });
+  if (m.odds?.away != null) oddsChips.push({ label: "2", val: m.odds.away });
+  const oNote = oddsLine(m);
+
+  const combo = source === "claude" ? m.picks?.claude?.comboRecomendado : undefined;
+  const avoid = source === "claude" ? m.avoid : undefined;
 
   return (
     <div
@@ -64,6 +73,10 @@ export function MatchDetailModal({ m, onClose }: { m: DualMatch; onClose: () => 
           style={{ background: "linear-gradient(135deg, rgba(64,40,120,0.96), rgba(40,52,110,0.96))", borderBottom: "1px solid rgba(255,255,255,0.07)" }}
         >
           <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="h-2 w-2 rounded-full" style={{ background: meta.color }} />
+              <span className="text-xs font-display font-bold" style={{ color: meta.color }}>{meta.icon} {meta.label}</span>
+            </div>
             <div className="text-lg font-bold text-white">{m.match}</div>
             <div className="text-xs mt-1 muted">
               {m.venue}
@@ -89,12 +102,30 @@ export function MatchDetailModal({ m, onClose }: { m: DualMatch; onClose: () => 
         </div>
 
         <div className="p-5 flex flex-col gap-5">
-          {k && <SourceDetail src="klement" pick={k} />}
-          {c && <SourceDetail src="claude" pick={c} />}
+          {/* 1. Cómo llegan */}
+          {m.preview && (
+            <Section title="Cómo llegan">
+              <p className="text-sm leading-relaxed" style={{ color: "rgba(252,251,250,0.85)" }}>{m.preview}</p>
+            </Section>
+          )}
 
+          {/* 2. Qué dicen las casas */}
+          {(oddsChips.length > 0 || oNote) && (
+            <Section title="Qué dicen las casas">
+              {oddsChips.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mb-2">
+                  {oddsChips.map((o) => (
+                    <span key={o.label} className="chip font-mono" style={{ background: "var(--surface-2)", color: "var(--lilac)" }}>{o.label}: {o.val.toFixed(2)}</span>
+                  ))}
+                </div>
+              )}
+              {oNote && <p className="text-sm leading-snug muted">{oNote}</p>}
+            </Section>
+          )}
+
+          {/* 3. Picks por probabilidad (fuente clickeada) */}
           {options.length > 0 && (
-            <div>
-              <h4 className="text-sm font-bold text-white mb-2">Menú multi-mercado</h4>
+            <Section title="Picks por probabilidad">
               <div className="neon-sub overflow-hidden">
                 {options.map((o, i) => {
                   const b = BAND[o.confidence];
@@ -111,9 +142,10 @@ export function MatchDetailModal({ m, onClose }: { m: DualMatch; onClose: () => 
                   );
                 })}
               </div>
-            </div>
+            </Section>
           )}
 
+          {/* 4. Solo Claude: combo recomendado + evitar */}
           {combo && (
             <div className="neon-sub p-3" style={{ boxShadow: "var(--glow-purple)" }}>
               <div className="text-sm font-bold mb-2" style={{ color: "var(--lilac)" }}>★ Combo recomendado</div>
@@ -130,11 +162,11 @@ export function MatchDetailModal({ m, onClose }: { m: DualMatch; onClose: () => 
             </div>
           )}
 
-          {m.avoid && m.avoid.length > 0 && (
+          {avoid && avoid.length > 0 && (
             <div className="neon-sub p-3 glow-red">
               <div className="text-xs font-bold mb-1.5 uppercase" style={{ color: "var(--red-main)" }}>⚠️ Evitar / A tener en cuenta</div>
               <ul className="text-xs space-y-1.5 muted">
-                {m.avoid.map((a, i) => (
+                {avoid.map((a, i) => (
                   <li key={i}>• {a}</li>
                 ))}
               </ul>
