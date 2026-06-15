@@ -19,11 +19,18 @@ const JORNADAS: JItem[] = [
 const dayMs = (iso: string) => new Date(`${iso}T12:00:00-04:00`).getTime();
 
 // Jornada cuya fecha está más cerca de hoy (default del selector).
+// Ante empate de fecha (p. ej. una jornada v1 y otra v2 el mismo día),
+// se prefiere la de número mayor: la más reciente / modelo nuevo.
 function defaultNum(): number {
   const t = dayMs(todayISO());
   let best = JORNADAS[0];
+  let bestD = Math.abs(dayMs(best.date) - t);
   for (const j of JORNADAS) {
-    if (Math.abs(dayMs(j.date) - t) < Math.abs(dayMs(best.date) - t)) best = j;
+    const d = Math.abs(dayMs(j.date) - t);
+    if (d < bestD || (d === bestD && j.num > best.num)) {
+      best = j;
+      bestD = d;
+    }
   }
   return best.num;
 }
