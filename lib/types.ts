@@ -74,11 +74,24 @@ export interface Group {
 }
 
 // ── Picks de doble fuente (Klement / Claude) — jornadas modelo v2 ──
+// Banda de respaldo en datos reales (no inventar): córners/faltas/amarillas
+// suelen ser media/baja salvo stat fuerte.
+export type Band = "alta" | "media" | "baja";
+
+export interface Option {
+  market: string;
+  selection: string;
+  confidence: Band;
+}
+
 export interface SourcePick {
   market: string;
   selection: string;
   driver?: string; // razonamiento de Klement
   note?: string; // matiz / valor de Claude
+  fullAnalysis?: string; // análisis completo (se ve al expandir el detalle)
+  options?: Option[]; // menú multi-mercado (claude)
+  comboRecomendado?: { legs: string[]; nota?: string }; // combo recomendado (claude)
 }
 
 export interface DualReferee {
@@ -101,6 +114,7 @@ export interface DualMatch {
   odds?: DualOdds;
   stats?: Record<string, number>;
   result?: string | null;
+  avoid?: string[]; // "EVITAR / A tener en cuenta": lesiones, bajas, historial
   picks?: {
     klement?: SourcePick;
     claude?: SourcePick;

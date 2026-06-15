@@ -4,12 +4,14 @@ import { useState } from "react";
 import { DUAL_JORNADAS } from "@/lib/data/picks";
 import type { DualJornada, DualMatch, SourcePick } from "@/lib/types";
 import { ComboBlock, ComboAdvisory } from "@/components/picks-ui";
+import { MatchDetailModal } from "@/components/MatchDetailModal";
 import { todayISO, longLabel } from "@/lib/dates";
 
 const dayMs = (iso: string) => new Date(`${iso}T12:00:00-04:00`).getTime();
 
-// Jornadas ordenadas cronológicamente.
+// Jornadas ordenadas cronológicamente. El índice (+1) es la etiqueta "Día N".
 const JORNADAS = [...DUAL_JORNADAS].sort((a, b) => a.jornada - b.jornada);
+const diaLabel = (jornada: number) => `Día ${JORNADAS.findIndex((j) => j.jornada === jornada) + 1}`;
 
 // Jornada cuya fecha está más cerca de hoy (default del selector).
 // Ante empate de fecha se prefiere la de número mayor (la más reciente).
@@ -56,14 +58,14 @@ export function TabPicks() {
                   : { color: "var(--lilac)", background: "var(--surface-2)" }
               }
             >
-              J{j.jornada}
+              {diaLabel(j.jornada)}
             </button>
           );
         })}
       </div>
 
       <section>
-        <h2 className="text-lg mb-4 text-white">{`Jornada ${current.jornada} · ${longLabel(current.fecha)}`}</h2>
+        <h2 className="text-lg mb-4 text-white">{`${diaLabel(current.jornada)} · ${longLabel(current.fecha)}`}</h2>
         <Jornada jornada={current} />
       </section>
     </div>
@@ -93,28 +95,38 @@ function Jornada({ jornada }: { jornada: DualJornada }) {
 
 const humanizeStat = (k: string) => k.replace(/([A-Z])/g, " $1").trim();
 
-function SourceCol({ source, pick }: { source: "klement" | "claude"; pick: SourcePick }) {
+function SourceCol({ source, pick, onOpen }: { source: "klement" | "claude"; pick: SourcePick; onOpen?: () => void }) {
   const meta =
     source === "klement"
       ? { label: "Klement", color: "var(--blue-deep)", icon: "📊" }
       : { label: "Claude", color: "var(--turquoise)", icon: "🤖" };
   const detail = pick.driver ?? pick.note;
-  return (
-    <div className="neon-sub p-3">
+  const body = (
+    <>
       <div className="flex items-center gap-2 mb-2">
         <span className="h-2 w-2 rounded-full shrink-0" style={{ background: meta.color }} />
-        <span className="text-sm font-display font-bold" style={{ color: meta.color }}>
-          {meta.icon} {meta.label}
-        </span>
+        <span className="text-sm font-display font-bold" style={{ color: meta.color }}>{meta.icon} {meta.label}</span>
         <span className="chip ml-auto" style={{ background: "var(--surface-2)", color: "var(--lilac)" }}>{pick.market}</span>
       </div>
       <div className="text-sm font-bold text-white leading-snug">{pick.selection}</div>
       {detail && <div className="text-xs mt-1.5 leading-snug muted">{detail}</div>}
-    </div>
+      {onOpen && (
+        <div className="text-xs mt-2 font-semibold" style={{ color: "var(--turquoise)" }}>Ver análisis completo →</div>
+      )}
+    </>
   );
+  if (onOpen) {
+    return (
+      <button type="button" onClick={onOpen} className="neon-sub neon-press p-3 text-left w-full">
+        {body}
+      </button>
+    );
+  }
+  return <div className="neon-sub p-3">{body}</div>;
 }
 
 function MatchCard({ m }: { m: DualMatch }) {
+  const [open, setOpen] = useState(false);
   const time = m.kickoff?.match(/T(\d{2}:\d{2})/)?.[1] ?? null;
   const ref = m.referee;
   const refName = ref?.name ?? null;
@@ -126,6 +138,18 @@ function MatchCard({ m }: { m: DualMatch }) {
 
   const stats = m.stats ? Object.entries(m.stats) : [];
   const hasMeta = !!refName || ref?.avgCards != null || !!ref?.avgFouls || oddsChips.length > 0 || stats.length > 0;
+
+  // ¿Hay algo extra que justifique abrir el detalle?
+  const k = m.picks?.klement;
+  const c = m.picks?.claude;
+  const hasDetail = !!(
+    (m.avoid && m.avoid.length) ||
+    k?.fullAnalysis ||
+    c?.fullAnalysis ||
+    (c?.options && c.options.length) ||
+    c?.comboRecomendado
+  );
+  const onOpen = hasDetail ? () => setOpen(true) : undefined;
 
   const chipSurface = { background: "var(--surface-2)", color: "var(--lilac)" };
   const chipTurq = { background: "rgba(135,231,223,0.08)", color: "var(--turquoise)" };
@@ -154,8 +178,8 @@ function MatchCard({ m }: { m: DualMatch }) {
             {oddsChips.map((o) => (
               <span key={o.label} className="chip font-mono" style={chipSurface}>{o.label}: {o.val.toFixed(2)}</span>
             ))}
-            {stats.map(([k, v]) => (
-              <span key={k} className="chip" style={chipSurface}>📊 {humanizeStat(k)}: {v}</span>
+            {stats.map(([k2, v]) => (
+              <span key={k2} className="chip" style={chipSurface}>📊 {humanizeStat(k2)}: {v}</span>
             ))}
           </div>
         )}
@@ -163,10 +187,12 @@ function MatchCard({ m }: { m: DualMatch }) {
 
       <div className="p-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {m.picks?.klement && <SourceCol source="klement" pick={m.picks.klement} />}
-          {m.picks?.claude && <SourceCol source="claude" pick={m.picks.claude} />}
+          {k && <SourceCol source="klement" pick={k} onOpen={onOpen} />}
+          {c && <SourceCol source="claude" pick={c} onOpen={onOpen} />}
         </div>
       </div>
+
+      {open && <MatchDetailModal m={m} onClose={() => setOpen(false)} />}
     </article>
   );
 }
