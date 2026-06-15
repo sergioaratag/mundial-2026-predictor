@@ -35,27 +35,50 @@ function oddsLine(m: DualMatch): string | null {
   return parts.length ? `Cuotas: ${parts.join(" · ")}.` : null;
 }
 
-// ¿Acertó el pick? Conservador: solo evalúa casos claros (Over/Under, gana, empate).
-// Si no puede determinarlo con seguridad devuelve null (no se muestra ✓/✗, no inventa).
-function pickHit(result: string, selection: string, match: string): boolean | null {
-  const sel = selection.toLowerCase();
+// ¿Acertó el pick principal? Conservador: cubre 1X2, Totales (Over/Under), BTTS
+// y hándicaps simples. Si la selección es ambigua/combinada o no se puede resolver
+// con certeza, devuelve null (no se muestra ✓/✗ — nunca inventa el veredicto).
+function pickHit(result: string, market: string, selection: string, match: string): boolean | null {
   const nums = result.match(/(\d+)\s*[-–:]\s*(\d+)/);
+  if (!nums) return null;
+  const h = parseInt(nums[1], 10); // local
+  const a = parseInt(nums[2], 10); // visitante
+  const total = h + a;
+  const sel = selection.toLowerCase().trim();
+  const mkt = market.toLowerCase();
+  const [home, away] = match.split(/\s+vs\s+/i).map((s) => s.trim().toLowerCase());
+  const inHome = !!home && sel.includes(home);
+  const inAway = !!away && sel.includes(away);
+
+  // Mercados no resolubles desde el marcador, o combinados → sin veredicto.
+  if (/córner|corner|falta|amarilla|tarjeta|goleador|anota/.test(sel + mkt)) return null;
+  if (sel.includes(" + ")) return null;
+
+  // BTTS / ambos marcan
+  if (/btts|ambos marcan/.test(mkt) || /btts|ambos marcan/.test(sel)) {
+    const both = h > 0 && a > 0;
+    if (/\bno\b/.test(sel)) return !both;
+    if (/s[íi]/.test(sel)) return both;
+    return null;
+  }
+
+  // Totales Over/Under
   const ou = sel.match(/(over|under)\s*(\d+(?:\.\d+)?)/);
-  if (nums && ou) {
-    const total = parseInt(nums[1], 10) + parseInt(nums[2], 10);
-    const line = parseFloat(ou[2]);
-    return ou[1] === "over" ? total > line : total < line;
+  if (ou) return ou[1] === "over" ? total > parseFloat(ou[2]) : total < parseFloat(ou[2]);
+
+  // Hándicap "Equipo +/-N.5"
+  const hc = sel.match(/([+-])\s*(\d+(?:\.\d+)?)/);
+  if (hc) {
+    const line = parseFloat(hc[2]) * (hc[1] === "-" ? -1 : 1);
+    if (inHome && !inAway) return h + line > a;
+    if (inAway && !inHome) return a + line > h;
+    return null;
   }
-  if (nums) {
-    const h = parseInt(nums[1], 10);
-    const a = parseInt(nums[2], 10);
-    const [home, away] = match.split(/\s+vs\s+/i).map((s) => s.trim().toLowerCase());
-    if (/empate|draw/.test(sel)) return h === a;
-    if (sel.includes("gana") || sel.includes("1x2")) {
-      if (home && sel.includes(home)) return h > a;
-      if (away && sel.includes(away)) return a > h;
-    }
-  }
+
+  // 1X2 / resultado: empate o equipo gana
+  if (/empate|draw/.test(sel)) return h === a;
+  if (inHome && !inAway) return h > a;
+  if (inAway && !inHome) return a > h;
   return null;
 }
 
@@ -84,7 +107,7 @@ export function MatchDetailModal({ m, source, onClose }: { m: DualMatch; source:
   const combo = source === "claude" ? m.picks?.claude?.comboRecomendado : undefined;
   const avoid = source === "claude" ? m.avoid : undefined;
   const detail = pick?.driver ?? pick?.note;
-  const resultHit = m.result && pick ? pickHit(m.result, pick.selection, m.match) : null;
+  const resultHit = m.result && pick ? pickHit(m.result, pick.market, pick.selection, m.match) : null;
 
   return (
     <div
@@ -131,12 +154,18 @@ export function MatchDetailModal({ m, source, onClose }: { m: DualMatch; source:
           {/* Resultado (si el partido ya se jugó) */}
           {m.result && (
             <div
-              className="neon-sub p-3 flex items-center gap-2"
+              className="neon-sub p-4 flex items-center gap-4"
               style={resultHit === true ? { boxShadow: "var(--glow-lime)" } : resultHit === false ? { boxShadow: "var(--glow-red)" } : undefined}
             >
-              {resultHit === true && <span className="text-lg font-bold" style={{ color: "var(--lime)" }}>✓</span>}
-              {resultHit === false && <span className="text-lg font-bold" style={{ color: "var(--red-main)" }}>✗</span>}
-              <span className="text-sm font-bold text-white">Resultado: {m.result}</span>
+              <div className="text-3xl font-display font-bold text-white tracking-[0.15em]">{m.result}</div>
+              <div>
+                <div className="text-[11px] uppercase tracking-wide muted font-semibold">Resultado final</div>
+                {resultHit !== null && (
+                  <div className="text-sm font-bold mt-0.5" style={{ color: resultHit ? "var(--lime)" : "var(--red-main)" }}>
+                    {resultHit ? "✓ El pick acertó" : "✗ El pick falló"}
+                  </div>
+                )}
+              </div>
             </div>
           )}
 

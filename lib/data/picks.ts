@@ -13,6 +13,7 @@ export const j1: DualJornada = {
   partidos: [
     {
       match: "México vs Sudáfrica",
+      result: "2-0",
       venue: "Estadio Azteca (Ciudad de México)",
       kickoff: "2026-06-11T20:00:00-04:00",
       picks: {
@@ -22,6 +23,7 @@ export const j1: DualJornada = {
     },
     {
       match: "Corea del Sur vs Chequia",
+      result: "2-1",
       venue: "Estadio Akron (Guadalajara, Zapopan)",
       kickoff: "2026-06-11T22:00:00-04:00",
       picks: {
@@ -44,6 +46,7 @@ export const j2: DualJornada = {
   partidos: [
     {
       match: "Canadá vs Bosnia-Herzegovina",
+      result: "1-1",
       venue: "BMO Field (Toronto)",
       kickoff: "2026-06-12T15:00:00-04:00",
       picks: {
@@ -53,6 +56,7 @@ export const j2: DualJornada = {
     },
     {
       match: "Estados Unidos vs Paraguay",
+      result: "4-1",
       venue: "SoFi Stadium (Los Ángeles, Inglewood)",
       kickoff: "2026-06-12T21:00:00-04:00",
       picks: {
@@ -77,6 +81,7 @@ export const j3: DualJornada = {
   partidos: [
     {
       match: "Catar vs Suiza",
+      result: "1-1",
       venue: "Levi's Stadium (Santa Clara)",
       kickoff: "2026-06-13T15:00:00-04:00",
       referee: { name: "Saíd Martínez", avgCards: "4.0", avgFouls: "24.0" },
@@ -87,6 +92,7 @@ export const j3: DualJornada = {
     },
     {
       match: "Brasil vs Marruecos",
+      result: "1-1",
       venue: "MetLife Stadium (East Rutherford)",
       kickoff: "2026-06-13T18:00:00-04:00",
       referee: { name: "Slavko Vinčić", avgCards: "4.1", avgFouls: "25.5" },
@@ -97,6 +103,7 @@ export const j3: DualJornada = {
     },
     {
       match: "Haití vs Escocia",
+      result: "0-1",
       venue: "Gillette Stadium (Foxborough)",
       kickoff: "2026-06-13T21:00:00-04:00",
       referee: { name: "Mustapha Ghorbal", avgCards: "4.2", avgFouls: "28.8" },
@@ -123,6 +130,7 @@ export const j4: DualJornada = {
   partidos: [
     {
       match: "Australia vs Turquía",
+      result: "2-0",
       venue: "BC Place (Vancouver)",
       kickoff: "2026-06-14T00:00:00-04:00",
       referee: { name: "Jesús Valenzuela Sáez", avgCards: "5.4", avgFouls: "27.4" },
@@ -133,6 +141,7 @@ export const j4: DualJornada = {
     },
     {
       match: "Alemania vs Curazao",
+      result: "7-1",
       venue: "NRG Stadium (Houston)",
       kickoff: "2026-06-14T13:00:00-04:00",
       picks: {
@@ -142,6 +151,7 @@ export const j4: DualJornada = {
     },
     {
       match: "Países Bajos vs Japón",
+      result: "2-2",
       venue: "AT&T Stadium (Arlington, Dallas)",
       kickoff: "2026-06-14T16:00:00-04:00",
       picks: {
@@ -151,6 +161,7 @@ export const j4: DualJornada = {
     },
     {
       match: "Costa de Marfil vs Ecuador",
+      result: "1-0",
       venue: "Lincoln Financial Field (Filadelfia)",
       kickoff: "2026-06-14T19:00:00-04:00",
       picks: {
@@ -160,6 +171,7 @@ export const j4: DualJornada = {
     },
     {
       match: "Suecia vs Túnez",
+      result: "5-1",
       venue: "Estadio BBVA (Monterrey)",
       kickoff: "2026-06-14T22:00:00-04:00",
       picks: {
@@ -185,6 +197,7 @@ export const j15: DualJornada = {
   partidos: [
     {
       match: "España vs Cabo Verde",
+      result: "0-0",
       venue: "Mercedes-Benz (Atlanta)",
       kickoff: "2026-06-15T12:00:00-04:00",
       referee: { name: "Adham Makhadmeh" },
@@ -196,6 +209,7 @@ export const j15: DualJornada = {
     },
     {
       match: "Bélgica vs Egipto",
+      result: "1-1",
       venue: "Lumen Field (Seattle)",
       kickoff: "2026-06-15T15:00:00-04:00",
       referee: { name: "Ramon Abatti" },

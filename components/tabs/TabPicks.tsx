@@ -154,14 +154,10 @@ function MatchCard({ m }: { m: DualMatch }) {
       >
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <span className="text-base font-bold text-white">{m.match}</span>
+          {m.result && <span className="chip font-mono" style={{ background: "rgba(135,231,223,0.12)", color: "var(--turquoise)" }}>Final {m.result}</span>}
           {time && <span className="text-xs ml-auto font-bold" style={{ color: "var(--turquoise)" }}>{time} · hora Bolivia</span>}
         </div>
-        {(m.venue || m.result) && (
-          <div className="text-xs mt-0.5 muted">
-            {m.venue}
-            {m.result ? ` · Resultado: ${m.result}` : ""}
-          </div>
-        )}
+        {m.venue && <div className="text-xs mt-0.5 muted">{m.venue}</div>}
         {hasMeta && (
           <div className="flex flex-wrap gap-1.5 mt-2">
             {refName && <span className="chip" style={chipTurq}>⚖️ {refName}</span>}
