@@ -35,6 +35,30 @@ function oddsLine(m: DualMatch): string | null {
   return parts.length ? `Cuotas: ${parts.join(" · ")}.` : null;
 }
 
+// ¿Acertó el pick? Conservador: solo evalúa casos claros (Over/Under, gana, empate).
+// Si no puede determinarlo con seguridad devuelve null (no se muestra ✓/✗, no inventa).
+function pickHit(result: string, selection: string, match: string): boolean | null {
+  const sel = selection.toLowerCase();
+  const nums = result.match(/(\d+)\s*[-–:]\s*(\d+)/);
+  const ou = sel.match(/(over|under)\s*(\d+(?:\.\d+)?)/);
+  if (nums && ou) {
+    const total = parseInt(nums[1], 10) + parseInt(nums[2], 10);
+    const line = parseFloat(ou[2]);
+    return ou[1] === "over" ? total > line : total < line;
+  }
+  if (nums) {
+    const h = parseInt(nums[1], 10);
+    const a = parseInt(nums[2], 10);
+    const [home, away] = match.split(/\s+vs\s+/i).map((s) => s.trim().toLowerCase());
+    if (/empate|draw/.test(sel)) return h === a;
+    if (sel.includes("gana") || sel.includes("1x2")) {
+      if (home && sel.includes(home)) return h > a;
+      if (away && sel.includes(away)) return a > h;
+    }
+  }
+  return null;
+}
+
 export function MatchDetailModal({ m, source, onClose }: { m: DualMatch; source: "klement" | "claude"; onClose: () => void }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
@@ -59,6 +83,8 @@ export function MatchDetailModal({ m, source, onClose }: { m: DualMatch; source:
 
   const combo = source === "claude" ? m.picks?.claude?.comboRecomendado : undefined;
   const avoid = source === "claude" ? m.avoid : undefined;
+  const detail = pick?.driver ?? pick?.note;
+  const resultHit = m.result && pick ? pickHit(m.result, pick.selection, m.match) : null;
 
   return (
     <div
@@ -102,6 +128,18 @@ export function MatchDetailModal({ m, source, onClose }: { m: DualMatch; source:
         </div>
 
         <div className="p-5 flex flex-col gap-5">
+          {/* Resultado (si el partido ya se jugó) */}
+          {m.result && (
+            <div
+              className="neon-sub p-3 flex items-center gap-2"
+              style={resultHit === true ? { boxShadow: "var(--glow-lime)" } : resultHit === false ? { boxShadow: "var(--glow-red)" } : undefined}
+            >
+              {resultHit === true && <span className="text-lg font-bold" style={{ color: "var(--lime)" }}>✓</span>}
+              {resultHit === false && <span className="text-lg font-bold" style={{ color: "var(--red-main)" }}>✗</span>}
+              <span className="text-sm font-bold text-white">Resultado: {m.result}</span>
+            </div>
+          )}
+
           {/* 1. Cómo llegan */}
           {m.preview && (
             <Section title="Cómo llegan">
@@ -123,25 +161,35 @@ export function MatchDetailModal({ m, source, onClose }: { m: DualMatch; source:
             </Section>
           )}
 
-          {/* 3. Picks por probabilidad (fuente clickeada) */}
-          {options.length > 0 && (
+          {/* 3. Picks por probabilidad (fuente clickeada). Si no hay options, al menos el pick principal. */}
+          {pick && (
             <Section title="Picks por probabilidad">
-              <div className="neon-sub overflow-hidden">
-                {options.map((o, i) => {
-                  const b = BAND[o.confidence];
-                  return (
-                    <div
-                      key={i}
-                      className="flex items-center gap-3 px-3 py-2.5"
-                      style={{ borderTop: i ? "1px solid rgba(255,255,255,0.06)" : undefined }}
-                    >
-                      <span className="text-[11px] uppercase tracking-wide muted font-semibold w-24 sm:w-32 shrink-0">{o.market}</span>
-                      <span className="text-sm text-white flex-1">{o.selection}</span>
-                      <span className="chip shrink-0" style={{ color: b.color, background: b.bg }}>{b.label}</span>
-                    </div>
-                  );
-                })}
-              </div>
+              {options.length > 0 ? (
+                <div className="neon-sub overflow-hidden">
+                  {options.map((o, i) => {
+                    const b = BAND[o.confidence];
+                    return (
+                      <div
+                        key={i}
+                        className="flex items-center gap-3 px-3 py-2.5"
+                        style={{ borderTop: i ? "1px solid rgba(255,255,255,0.06)" : undefined }}
+                      >
+                        <span className="text-[11px] uppercase tracking-wide muted font-semibold w-24 sm:w-32 shrink-0">{o.market}</span>
+                        <span className="text-sm text-white flex-1">{o.selection}</span>
+                        <span className="chip shrink-0" style={{ color: b.color, background: b.bg }}>{b.label}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="neon-sub p-3">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="chip" style={{ background: "var(--surface-2)", color: "var(--lilac)" }}>{pick.market}</span>
+                  </div>
+                  <div className="text-base font-bold text-white">{pick.selection}</div>
+                  {detail && <div className="text-xs mt-1 leading-snug muted">{detail}</div>}
+                </div>
+              )}
             </Section>
           )}
 

@@ -139,19 +139,9 @@ function MatchCard({ m }: { m: DualMatch }) {
   const stats = m.stats ? Object.entries(m.stats) : [];
   const hasMeta = !!refName || ref?.avgCards != null || !!ref?.avgFouls || oddsChips.length > 0 || stats.length > 0;
 
-  // ¿Hay algo extra que justifique abrir el detalle?
+  // Panel universal: toda tarjeta abre el detalle (el modal tolera datos faltantes).
   const k = m.picks?.klement;
   const c = m.picks?.claude;
-  const hasDetail = !!(
-    m.preview ||
-    m.oddsNote ||
-    (m.avoid && m.avoid.length) ||
-    k?.fullAnalysis ||
-    c?.fullAnalysis ||
-    (k?.options && k.options.length) ||
-    (c?.options && c.options.length) ||
-    c?.comboRecomendado
-  );
 
   const chipSurface = { background: "var(--surface-2)", color: "var(--lilac)" };
   const chipTurq = { background: "rgba(135,231,223,0.08)", color: "var(--turquoise)" };
@@ -189,8 +179,8 @@ function MatchCard({ m }: { m: DualMatch }) {
 
       <div className="p-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {k && <SourceCol source="klement" pick={k} onOpen={hasDetail ? () => setOpen("klement") : undefined} />}
-          {c && <SourceCol source="claude" pick={c} onOpen={hasDetail ? () => setOpen("claude") : undefined} />}
+          {k && <SourceCol source="klement" pick={k} onOpen={() => setOpen("klement")} />}
+          {c && <SourceCol source="claude" pick={c} onOpen={() => setOpen("claude")} />}
         </div>
       </div>
 
