@@ -97,7 +97,19 @@ export interface SourcePick {
 export interface DualReferee {
   name: string | null;
   avgCards?: string | null;
-  avgFouls?: string;
+  avgFouls?: string | null;
+}
+
+// Simulaciones Monte Carlo a nivel partido (jornadas nuevas; las viejas no la traen).
+export interface Sim {
+  model: string; // "Monte Carlo Poisson · 200k sims"
+  win: { h: number; d: number; a: number }; // probabilidades 1/X/2 en %
+  over25: number; // % Over 2.5
+  btts: number; // % ambos marcan
+  hcap: string; // lectura de hándicaps ("Australia +1.5: 72% | USA -1.5: 28%")
+  xg: number; // xG total esperado
+  topScore: string; // marcador más probable ("1-0")
+  note?: string; // matiz del modelo
 }
 
 export interface DualOdds {
@@ -115,6 +127,7 @@ export interface DualMatch {
   oddsNote?: string; // lectura corta del mercado ("Qué dicen las casas")
   preview?: string; // "Cómo llegan": resumen de ambas selecciones
   stats?: Record<string, number>;
+  simulaciones?: Sim; // panel de Simulaciones (solo si existe en el partido)
   result?: string | null;
   avoid?: string[]; // "EVITAR / A tener en cuenta": lesiones, bajas, historial
   picks?: {

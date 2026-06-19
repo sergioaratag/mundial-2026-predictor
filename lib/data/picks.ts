@@ -370,6 +370,190 @@ export const j16: DualJornada = {
   ],
 };
 
-// Lista única de jornadas (orden cronológico). J5 vieja eliminada: era el mismo
-// matchday que J15 y quedaba duplicada.
-export const DUAL_JORNADAS: DualJornada[] = [j1, j2, j3, j4, j15, j16];
+export const j9: DualJornada = {
+  jornada: 9,
+  fecha: "2026-06-19",
+  tipo: "picks",
+  partidos: [
+    {
+      match: "Estados Unidos vs Australia",
+      venue: "Lumen Field (Seattle)",
+      kickoff: "2026-06-19T15:00:00-04:00",
+      referee: { name: "Felix Zwayer", avgCards: "4.7", avgFouls: "22.7" },
+      odds: { home: 1.61, draw: 4.5, away: 5.5 },
+      simulaciones: { model: "Monte Carlo Poisson · 200k sims", win: { h: 52, d: 25, a: 22 }, over25: 47, btts: 49, hcap: "Australia +1.5: 72% | USA -1.5: 28%", xg: 2.55, topScore: "1-0", note: "USA gana pero sin la holgura del mercado; tira a Under" },
+      preview: "Ambos ganaron su debut (USA 4-1 Paraguay; Australia 2-0 Turquía). USA con localía continental y posesión; Australia física y peligrosa a balón parado.",
+      oddsNote: "USA 1.61 / X 4.50 / Australia 5.50.",
+      avoid: ["USA -1.5 no es seguro (modelo 28%)", "Australia gana mucho duelo aéreo → faltas", "Seattle templado: sin factor calor"],
+      picks: {
+        klement: { market: "1X2", selection: "Estados Unidos", driver: "localía + ranking", options: [{ market: "1X2", selection: "USA gana", confidence: "alta" }] },
+        claude: {
+          market: "Totales",
+          selection: "Under 2.5",
+          note: "Modelo 53% Under. Zwayer pita 4.7 amarillas/partido (sobre la media). Jugador: Pulisic es la amenaza de tiros de USA; USA domina córners; Australia mete faltas.",
+          options: [{ market: "Hándicap", selection: "Australia +1.5", confidence: "alta" }, { market: "Totales", selection: "Under 2.5", confidence: "media" }, { market: "1X2", selection: "USA gana", confidence: "media" }, { market: "Córners", selection: "USA over", confidence: "media" }, { market: "Tarjetas", selection: "Total amarillas Over 4.5", confidence: "media" }, { market: "Jugador", selection: "Pulisic tiro a puerta", confidence: "media" }],
+          comboRecomendado: { legs: ["USA gana", "Under 3.5"], nota: "Máx. 2 patas" },
+        },
+      },
+    },
+    {
+      match: "Escocia vs Marruecos",
+      venue: "Gillette (Foxborough)",
+      kickoff: "2026-06-19T18:00:00-04:00",
+      referee: { name: "Ilgiz Tantashev", avgCards: "3.6", avgFouls: "21.3" },
+      odds: { home: 5.25, draw: 3.7, away: 1.74 },
+      simulaciones: { model: "Monte Carlo Poisson · 200k sims", win: { h: 22, d: 27, a: 51 }, over25: 40, btts: 44, hcap: "Marruecos +1.5: 93% | Escocia -1.5: 7%", xg: 2.3, topScore: "0-1", note: "Marruecos favorito; pocos goles" },
+      preview: "Marruecos llega de empatar 1-1 con Brasil (gran imagen); Escocia ganó 1-0 a Haití. Marruecos técnico y con fondo físico; Escocia intensa y directa.",
+      oddsNote: "Escocia 5.25 / X 3.70 / Marruecos 1.74.",
+      avoid: ["Boston templado: sin ventaja de calor para Marruecos", "Tantashev es permisivo (3.6): NO fuerces over de tarjetas pese a las faltas de Escocia"],
+      picks: {
+        klement: { market: "1X2", selection: "Marruecos", driver: "ranking + forma", options: [{ market: "1X2", selection: "Marruecos gana", confidence: "alta" }] },
+        claude: {
+          market: "1X2 + Goles",
+          selection: "Marruecos gana + Under 2.5",
+          note: "Modelo 51% Marruecos, 60% Under. Árbitro permisivo (3.6) → mercados de tarjetas a la baja. Jugador: Hakimi gana córners/centros por derecha; Escocia acumula faltas pero el árbitro deja jugar.",
+          options: [{ market: "Totales", selection: "Under 2.5", confidence: "alta" }, { market: "1X2", selection: "Marruecos gana", confidence: "media" }, { market: "Hándicap", selection: "Escocia +1.5", confidence: "media" }, { market: "Córners", selection: "Marruecos over", confidence: "media" }, { market: "Tarjetas", selection: "Total amarillas Under 4.5", confidence: "media" }],
+          comboRecomendado: { legs: ["Marruecos gana", "Under 2.5"], nota: "Máx. 2 patas" },
+        },
+      },
+    },
+    {
+      match: "Brasil vs Haití",
+      venue: "Lincoln Financial (Philadelphia)",
+      kickoff: "2026-06-19T20:30:00-04:00",
+      referee: { name: "Alejandro Hernández H.", avgCards: "5.2", avgFouls: "25.4" },
+      odds: { home: 1.2, draw: 7.0, away: 13.0 },
+      simulaciones: { model: "Monte Carlo Poisson · 200k sims", win: { h: 80, d: 14, a: 6 }, over25: 55, btts: 36, hcap: "Brasil -1.5: 57% | Haití +1.5: 43%", xg: 2.9, topScore: "2-0", note: "Brasil gana seguro, pero -1.5 no es regalo: Haití defiende profundo" },
+      preview: "Brasil viene de un flojo 1-1 con Marruecos y querrá reaccionar; Haití perdió 0-1 con Escocia compitiendo. Brasil domina; Haití se cierra atrás.",
+      oddsNote: "Brasil 1.20 / X 7.0 / Haití 13.0.",
+      avoid: ["Brasil -1.5 solo 57% (Haití aguanta)", "Brasil viene irregular (1-1 con Marruecos)"],
+      picks: {
+        klement: { market: "1X2", selection: "Brasil", driver: "ranking + plantel", options: [{ market: "1X2", selection: "Brasil gana", confidence: "alta" }] },
+        claude: {
+          market: "Mercados de Brasil + tarjetas",
+          selection: "Brasil gana + amarillas over",
+          note: "Modelo 80% Brasil. Hernández es el 3.º árbitro más tarjetero del Mundial (5.2). Con Haití defendiendo profundo y metiendo faltas → tarjetas de Haití y total de amarillas son valor fuerte. Jugador: Vinícius y Raphinha generan muchos tiros vs bloque bajo (líneas de tiros a puerta y córners de Brasil).",
+          options: [{ market: "Tarjetas", selection: "Total amarillas Over 4.5", confidence: "alta" }, { market: "1X2", selection: "Brasil gana", confidence: "alta" }, { market: "Córners", selection: "Brasil over", confidence: "alta" }, { market: "Tarjetas", selection: "Tarjeta a Haití", confidence: "alta" }, { market: "Totales", selection: "Over 2.5", confidence: "media" }, { market: "Jugador", selection: "Raphinha tiros a puerta", confidence: "media" }],
+          comboRecomendado: { legs: ["Brasil gana", "Total amarillas Over 4.5"], nota: "Árbitro tarjetero + Haití profundo; máx. 2 patas" },
+        },
+      },
+    },
+    {
+      match: "Turquía vs Paraguay",
+      venue: "Levi's (Santa Clara)",
+      kickoff: "2026-06-19T23:00:00-04:00",
+      referee: { name: "Iván Barton", avgCards: "4.1", avgFouls: "22.4" },
+      odds: { home: 2.3, draw: 3.2, away: 3.3 },
+      simulaciones: { model: "Monte Carlo Poisson · 200k sims", win: { h: 41, d: 27, a: 31 }, over25: 43, btts: 49, hcap: "Paraguay +1.5: 81% | Turquía -1.5: 19%", xg: 2.4, topScore: "1-1", note: "Muy parejo; ambos vienen de perder → cauteloso" },
+      preview: "Los dos perdieron su debut (Turquía 0-2 Australia; Paraguay 1-4 USA) y se juegan mucho. Turquía con más talento; Paraguay físico y de bloque.",
+      oddsNote: "Turquía 2.30 / X 3.20 / Paraguay 3.30.",
+      avoid: ["Partido de necesidad → puede ser trabado", "Baja convicción: no lo metas en combos grandes"],
+      picks: {
+        klement: { market: "1X2", selection: "Turquía", driver: "ranking", options: [{ market: "1X2", selection: "Turquía gana", confidence: "media" }] },
+        claude: {
+          market: "Totales",
+          selection: "Under 2.5",
+          note: "Modelo 57% Under y partido parejo. Barton 4.1 amarillas (medio). Jugador: choque físico → faltas y tarjetas de Paraguay; pocos espacios para tiros claros.",
+          options: [{ market: "Totales", selection: "Under 2.5", confidence: "media" }, { market: "1X2", selection: "Turquía gana", confidence: "media" }, { market: "Tarjetas", selection: "Tarjeta a Paraguay", confidence: "media" }, { market: "Hándicap", selection: "Paraguay +1.5", confidence: "media" }],
+          comboRecomendado: { legs: ["Under 2.5"], nota: "Baja convicción: solo o con 1 pata más" },
+        },
+      },
+    },
+  ],
+};
+
+export const j10: DualJornada = {
+  jornada: 10,
+  fecha: "2026-06-20",
+  tipo: "picks",
+  partidos: [
+    {
+      match: "Países Bajos vs Suecia",
+      venue: "Levi's (Santa Clara)",
+      kickoff: "2026-06-20T13:00:00-04:00",
+      referee: { name: "Michael Oliver", avgCards: "3.7", avgFouls: "22.8" },
+      odds: { home: 1.65, draw: 4.1, away: 4.8 },
+      simulaciones: { model: "Monte Carlo Poisson · 200k sims", win: { h: 54, d: 22, a: 24 }, over25: 60, btts: 59, hcap: "Suecia +1.5: 69% | P. Bajos -1.5: 31%", xg: 3.1, topScore: "1-1", note: "EL partido OVER del finde: 60% Over, 59% BTTS" },
+      preview: "Países Bajos empató 2-2 con Japón (defensa floja); Suecia goleó 5-1 a Túnez. Dos equipos ofensivos y permeables atrás → partido abierto.",
+      oddsNote: "Países Bajos 1.65 / X 4.10 / Suecia 4.80.",
+      avoid: ["Es el partido más abierto: no fuerces el Under", "P. Bajos -1.5 solo 31%", "Oliver permisivo (3.7): nada de over de tarjetas"],
+      picks: {
+        klement: { market: "1X2", selection: "Países Bajos", driver: "ranking + plantel", options: [{ market: "1X2", selection: "Países Bajos gana", confidence: "media" }] },
+        claude: {
+          market: "Goles",
+          selection: "Over 2.5 + BTTS Sí",
+          note: "Modelo 60% Over y 59% BTTS, el más sólido del finde. Jugador: Gakpo/Depay vs Isak/Gyökeres → tiros y goles de ambos lados; muchos córners.",
+          options: [{ market: "Totales", selection: "Over 2.5", confidence: "alta" }, { market: "BTTS", selection: "Sí", confidence: "alta" }, { market: "1X2", selection: "Países Bajos gana", confidence: "media" }, { market: "Jugador", selection: "Gyökeres tiros a puerta", confidence: "media" }],
+          comboRecomendado: { legs: ["Over 2.5", "BTTS Sí"], nota: "El combo más respaldado por el modelo; 2 patas" },
+        },
+      },
+    },
+    {
+      match: "Alemania vs Costa de Marfil",
+      venue: "NRG (Houston, techo)",
+      kickoff: "2026-06-20T16:00:00-04:00",
+      referee: { name: "Juan Gabriel Benítez", avgCards: "3.8", avgFouls: "23.5" },
+      odds: { home: 1.5, draw: 4.2, away: 6.5 },
+      simulaciones: { model: "Monte Carlo Poisson · 200k sims", win: { h: 62, d: 22, a: 16 }, over25: 52, btts: 49, hcap: "Costa de Marfil +1.5: 63% | Alemania -1.5: 37%", xg: 2.75, topScore: "1-0", note: "Alemania gana pero CdM compite; -1.5 no cubre" },
+      preview: "Ambos ganaron su debut (Alemania 7-1 Curazao; Costa de Marfil 1-0 Ecuador). Alemania posesión y volumen; CdM física y de contra. NRG con techo: sin factor calor.",
+      oddsNote: "Alemania 1.50 / X 4.20 / Costa de Marfil 6.50.",
+      avoid: ["Alemania -1.5 solo 37%: CdM aguanta", "NRG techo/AC: sin ventaja de calor para CdM", "Benítez medio (3.8) en tarjetas"],
+      picks: {
+        klement: { market: "1X2", selection: "Alemania", driver: "ranking + plantel", options: [{ market: "1X2", selection: "Alemania gana", confidence: "alta" }] },
+        claude: {
+          market: "1X2 / Hándicap",
+          selection: "Alemania gana / CdM +1.5",
+          note: "Modelo 62% Alemania pero -1.5 flojo. Jugador: Wirtz/Musiala generan tiros; Alemania domina posesión y córners; CdM contragolpea.",
+          options: [{ market: "1X2", selection: "Alemania gana", confidence: "media" }, { market: "Hándicap", selection: "Costa de Marfil +1.5", confidence: "media" }, { market: "Córners", selection: "Alemania over", confidence: "media" }, { market: "Totales", selection: "Over 2.5", confidence: "media" }],
+          comboRecomendado: { legs: ["Alemania gana", "Over 1.5"], nota: "Máx. 2 patas" },
+        },
+      },
+    },
+    {
+      match: "Ecuador vs Curazao",
+      venue: "AT&T (Arlington)",
+      kickoff: "2026-06-20T19:00:00-04:00",
+      referee: { name: "Ning Ma", avgCards: "4.2", avgFouls: "25.7" },
+      odds: { home: 1.4, draw: 4.5, away: 8.0 },
+      simulaciones: { model: "Monte Carlo Poisson · 200k sims", win: { h: 72, d: 19, a: 9 }, over25: 47, btts: 37, hcap: "Ecuador -1.5: 46% | Curazao +1.5: 54%", xg: 2.55, topScore: "1-0", note: "Ecuador gana; Curazao débil pero Ecuador no es prolífico → Under aceptable" },
+      preview: "Ecuador perdió 0-1 con Costa de Marfil compitiendo; Curazao recibió un 1-7 de Alemania. Ecuador sólido y ordenado debería imponerse al debutante más débil.",
+      oddsNote: "Ecuador 1.40 / X 4.50 / Curazao 8.0.",
+      avoid: ["Ecuador no es goleador: el -1.5 es 46%", "Curazao se cierra → faltas (Ning Ma 25.7 faltas/partido)"],
+      picks: {
+        klement: { market: "1X2", selection: "Ecuador", driver: "ranking", options: [{ market: "1X2", selection: "Ecuador gana", confidence: "alta" }] },
+        claude: {
+          market: "1X2 + Goles",
+          selection: "Ecuador gana + Under 3.5",
+          note: "Modelo 72% Ecuador. Ning Ma pita muchas faltas (25.7) → ojo mercado de faltas. Jugador: Ecuador acumula córners/tiros vs bloque de Curazao.",
+          options: [{ market: "1X2", selection: "Ecuador gana", confidence: "alta" }, { market: "Totales", selection: "Under 3.5", confidence: "media" }, { market: "Córners", selection: "Ecuador over", confidence: "media" }, { market: "Hándicap", selection: "Ecuador -1.5", confidence: "baja" }],
+          comboRecomendado: { legs: ["Ecuador gana", "Ecuador córners over"], nota: "Máx. 2 patas" },
+        },
+      },
+    },
+    {
+      match: "Túnez vs Japón",
+      venue: "Grupo F (00:00 del 21, madrugada)",
+      kickoff: "2026-06-21T00:00:00-04:00",
+      referee: { name: "Istvan Kovacs", avgCards: "5.0", avgFouls: "25.3" },
+      odds: { home: 3.4, draw: 3.1, away: 2.05 },
+      simulaciones: { model: "Monte Carlo Poisson · 200k sims", win: { h: 23, d: 26, a: 51 }, over25: 43, btts: 46, hcap: "Japón +1.5: 93% | Túnez -1.5: 7%", xg: 2.4, topScore: "0-1", note: "Japón favorito; pocos goles" },
+      preview: "Se juega a las 00:00 del 21 (madrugada). Túnez recibió un duro 1-5 de Suecia; Japón empató 2-2 con Países Bajos de igual a igual. Japón maneja mejor el balón.",
+      oddsNote: "Túnez 3.40 / X 3.10 / Japón 2.05.",
+      avoid: ["Túnez viene golpeado (1-5): ojo reacción", "Japón controla pero no golea fácil"],
+      picks: {
+        klement: { market: "1X2", selection: "Japón", driver: "ranking + forma", options: [{ market: "1X2", selection: "Japón gana", confidence: "media" }] },
+        claude: {
+          market: "1X2 + Tarjetas",
+          selection: "Japón gana + amarillas over",
+          note: "Modelo 51% Japón, 57% Under en goles. PERO Kovacs es muy tarjetero (5.0) y Túnez llega frustrado → tarjetas de Túnez y total de amarillas suben a alta. Jugador: Japón completa muchos pases (posesión); Túnez mete faltas.",
+          options: [{ market: "Tarjetas", selection: "Tarjeta a Túnez", confidence: "alta" }, { market: "Tarjetas", selection: "Total amarillas Over 4.5", confidence: "alta" }, { market: "1X2", selection: "Japón gana", confidence: "media" }, { market: "Totales", selection: "Under 2.5", confidence: "media" }, { market: "Hándicap", selection: "Japón +0.5 (DNB)", confidence: "media" }],
+          comboRecomendado: { legs: ["Japón empate o gana (DNB)", "Total amarillas Over 4.5"], nota: "Árbitro tarjetero; máx. 2 patas" },
+        },
+      },
+    },
+  ],
+};
+
+// Lista única de jornadas. El orden cronológico real lo resuelve TabPicks por
+// `fecha` (j9/j10 son 19–20 jun, posteriores a j15/j16 del 15–16 jun).
+export const DUAL_JORNADAS: DualJornada[] = [j1, j2, j3, j4, j9, j10, j15, j16];

@@ -13,7 +13,10 @@ const BAND: Record<Band, { label: string; color: string; bg: string; order: numb
 const SRC = {
   klement: { label: "Klement", color: "var(--blue-deep)", icon: "📊" },
   claude: { label: "Claude", color: "var(--turquoise)", icon: "🤖" },
+  simulaciones: { label: "Simulaciones", color: "var(--lilac)", icon: "🎲" },
 } as const;
+
+type DetailSource = keyof typeof SRC;
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -82,7 +85,7 @@ function pickHit(result: string, market: string, selection: string, match: strin
   return null;
 }
 
-export function MatchDetailModal({ m, source, onClose }: { m: DualMatch; source: "klement" | "claude"; onClose: () => void }) {
+export function MatchDetailModal({ m, source, onClose }: { m: DualMatch; source: DetailSource; onClose: () => void }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
@@ -95,7 +98,8 @@ export function MatchDetailModal({ m, source, onClose }: { m: DualMatch; source:
 
   const meta = SRC[source];
   const time = m.kickoff?.match(/T(\d{2}:\d{2})/)?.[1] ?? null;
-  const pick = m.picks?.[source];
+  const sim = source === "simulaciones" ? m.simulaciones : undefined;
+  const pick = source === "simulaciones" ? undefined : m.picks?.[source];
   const options: Option[] = pick?.options ? [...pick.options].sort((a, b) => BAND[a.confidence].order - BAND[b.confidence].order) : [];
 
   const oddsChips: { label: string; val: number }[] = [];
@@ -187,6 +191,36 @@ export function MatchDetailModal({ m, source, onClose }: { m: DualMatch; source:
                 </div>
               )}
               {oNote && <p className="text-sm leading-snug muted">{oNote}</p>}
+            </Section>
+          )}
+
+          {/* Simulaciones: panel del modelo Monte Carlo (solo en source="simulaciones"). */}
+          {sim && (
+            <Section title="Simulaciones del partido">
+              <div className="text-xs muted mb-3">{sim.model}</div>
+              <div className="grid grid-cols-3 gap-2 mb-3">
+                {[
+                  { lbl: "Local (1)", val: sim.win.h },
+                  { lbl: "Empate (X)", val: sim.win.d },
+                  { lbl: "Visita (2)", val: sim.win.a },
+                ].map((c) => (
+                  <div key={c.lbl} className="neon-sub p-3 text-center">
+                    <div className="text-2xl font-display font-bold text-white">{c.val}%</div>
+                    <div className="text-[11px] uppercase tracking-wide muted font-semibold mt-0.5">{c.lbl}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                <span className="chip" style={{ background: "var(--surface-2)", color: "var(--white)" }}>Over 2.5: {sim.over25}%</span>
+                <span className="chip" style={{ background: "var(--surface-2)", color: "var(--lilac)" }}>Under 2.5: {100 - sim.over25}%</span>
+                <span className="chip" style={{ background: "var(--surface-2)", color: "var(--white)" }}>BTTS Sí: {sim.btts}%</span>
+                <span className="chip font-mono" style={{ background: "rgba(135,231,223,0.08)", color: "var(--turquoise)" }}>xG total: {sim.xg.toFixed(2)}</span>
+                <span className="chip font-mono" style={{ background: "rgba(135,231,223,0.08)", color: "var(--turquoise)" }}>Marcador: {sim.topScore}</span>
+              </div>
+              <div className="text-sm mt-3 leading-snug" style={{ color: "rgba(252,251,250,0.85)" }}>
+                <span className="font-semibold" style={{ color: "var(--lilac)" }}>Hándicaps: </span>{sim.hcap}
+              </div>
+              {sim.note && <p className="text-sm mt-2 leading-snug muted">{sim.note}</p>}
             </Section>
           )}
 

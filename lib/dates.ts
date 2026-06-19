@@ -24,6 +24,12 @@ export function chipLabel(date: string): string {
   return `${MESES[m - 1]} ${d}`;
 }
 
+// "2026-06-19" → "19 Jun" (chip del selector de jornadas)
+export function shortLabel(date: string): string {
+  const [, m, d] = date.split("-").map(Number);
+  return `${d} ${MESES[m - 1]}`;
+}
+
 // "2026-06-11" → "Jueves 11 de Junio"
 export function longLabel(date: string): string {
   const dt = new Date(date + "T12:00:00-04:00");

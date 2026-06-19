@@ -6,9 +6,8 @@ import { DUAL_JORNADAS } from "@/lib/data/picks";
 import { findNextMatch, humanUntil, todayISO, longLabel, type NextMatch } from "@/lib/dates";
 import type { TabKey } from "@/components/TabNav";
 
-const JORNADAS = [...DUAL_JORNADAS].sort((a, b) => a.jornada - b.jornada);
+const JORNADAS = [...DUAL_JORNADAS].sort((a, b) => a.fecha.localeCompare(b.fecha));
 const kickoffTime = (iso?: string) => iso?.match(/T(\d{2}:\d{2})/)?.[1] ?? "";
-const diaLabel = (jornada: number) => `Día ${JORNADAS.findIndex((j) => j.jornada === jornada) + 1}`;
 
 export function TabResumen({ onGo }: { onGo: (t: TabKey) => void }) {
   const [next, setNext] = useState<NextMatch>(null);
@@ -50,7 +49,7 @@ export function TabResumen({ onGo }: { onGo: (t: TabKey) => void }) {
                 className={`neon-card neon-press p-4 text-left ${isToday ? "glow-red" : ""}`}
               >
                 <div className="flex items-center justify-between gap-2">
-                  <h3 className="text-base text-white">{`${diaLabel(d.jornada)} · ${longLabel(d.fecha)}`}</h3>
+                  <h3 className="text-base text-white">{longLabel(d.fecha)}</h3>
                   <span className="chip" style={{ background: "var(--surface-2)", color: "var(--turquoise)" }}>Ver picks →</span>
                 </div>
                 <ul className="flex flex-col gap-1 mt-2">

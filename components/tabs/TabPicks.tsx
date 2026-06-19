@@ -2,16 +2,16 @@
 
 import { useState } from "react";
 import { DUAL_JORNADAS } from "@/lib/data/picks";
-import type { DualJornada, DualMatch, SourcePick } from "@/lib/types";
+import type { DualJornada, DualMatch, SourcePick, Sim } from "@/lib/types";
 import { ComboBlock, ComboAdvisory } from "@/components/picks-ui";
 import { MatchDetailModal } from "@/components/MatchDetailModal";
-import { todayISO, longLabel } from "@/lib/dates";
+import { todayISO, longLabel, shortLabel } from "@/lib/dates";
 
 const dayMs = (iso: string) => new Date(`${iso}T12:00:00-04:00`).getTime();
 
-// Jornadas ordenadas cronológicamente. El índice (+1) es la etiqueta "Día N".
-const JORNADAS = [...DUAL_JORNADAS].sort((a, b) => a.jornada - b.jornada);
-const diaLabel = (jornada: number) => `Día ${JORNADAS.findIndex((j) => j.jornada === jornada) + 1}`;
+// Jornadas ordenadas cronológicamente por su fecha real (no por número de
+// jornada: j9/j10 van entre j4 y j15 por número pero son posteriores por fecha).
+const JORNADAS = [...DUAL_JORNADAS].sort((a, b) => a.fecha.localeCompare(b.fecha));
 
 // Jornada cuya fecha está más cerca de hoy (default del selector).
 // Ante empate de fecha se prefiere la de número mayor (la más reciente).
@@ -58,14 +58,14 @@ export function TabPicks() {
                   : { color: "var(--lilac)", background: "var(--surface-2)" }
               }
             >
-              {diaLabel(j.jornada)}
+              {shortLabel(j.fecha)}
             </button>
           );
         })}
       </div>
 
       <section>
-        <h2 className="text-lg mb-4 text-white">{`${diaLabel(current.jornada)} · ${longLabel(current.fecha)}`}</h2>
+        <h2 className="text-lg mb-4 text-white">{longLabel(current.fecha)}</h2>
         <Jornada jornada={current} />
       </section>
     </div>
@@ -125,8 +125,30 @@ function SourceCol({ source, pick, onOpen }: { source: "klement" | "claude"; pic
   return <div className="neon-sub p-3">{body}</div>;
 }
 
+// Tarjeta de Simulaciones (Monte Carlo). Solo se renderiza si el partido trae
+// el objeto `simulaciones`; abre el panel de detalle en modo simulaciones.
+function SimCol({ sim, onOpen }: { sim: Sim; onOpen: () => void }) {
+  const color = "var(--lilac)";
+  return (
+    <button type="button" onClick={onOpen} className="neon-sub neon-press p-3 text-left w-full">
+      <div className="flex items-center gap-2 mb-2">
+        <span className="h-2 w-2 rounded-full shrink-0" style={{ background: color }} />
+        <span className="text-sm font-display font-bold" style={{ color }}>🎲 Simulaciones</span>
+        <span className="chip ml-auto font-mono" style={{ background: "var(--surface-2)", color: "var(--lilac)" }}>xG {sim.xg.toFixed(2)}</span>
+      </div>
+      <div className="flex gap-1.5 flex-wrap">
+        <span className="chip font-mono" style={{ background: "var(--surface-2)", color: "var(--white)" }}>1: {sim.win.h}%</span>
+        <span className="chip font-mono" style={{ background: "var(--surface-2)", color: "var(--white)" }}>X: {sim.win.d}%</span>
+        <span className="chip font-mono" style={{ background: "var(--surface-2)", color: "var(--white)" }}>2: {sim.win.a}%</span>
+      </div>
+      <div className="text-xs mt-1.5 leading-snug muted">Marcador más probable {sim.topScore} · Over 2.5 {sim.over25}%</div>
+      <div className="text-xs mt-2 font-semibold" style={{ color: "var(--turquoise)" }}>Ver simulación completa →</div>
+    </button>
+  );
+}
+
 function MatchCard({ m }: { m: DualMatch }) {
-  const [open, setOpen] = useState<"klement" | "claude" | null>(null);
+  const [open, setOpen] = useState<"klement" | "claude" | "simulaciones" | null>(null);
   const time = m.kickoff?.match(/T(\d{2}:\d{2})/)?.[1] ?? null;
   const ref = m.referee;
   const refName = ref?.name ?? null;
@@ -137,11 +159,13 @@ function MatchCard({ m }: { m: DualMatch }) {
   if (m.odds?.away != null) oddsChips.push({ label: "2", val: m.odds.away });
 
   const stats = m.stats ? Object.entries(m.stats) : [];
-  const hasMeta = !!refName || ref?.avgCards != null || !!ref?.avgFouls || oddsChips.length > 0 || stats.length > 0;
+  const hasMeta = !!refName || oddsChips.length > 0 || stats.length > 0;
 
   // Panel universal: toda tarjeta abre el detalle (el modal tolera datos faltantes).
   const k = m.picks?.klement;
   const c = m.picks?.claude;
+  const sim = m.simulaciones;
+  const cardCount = (k ? 1 : 0) + (c ? 1 : 0) + (sim ? 1 : 0);
 
   const chipSurface = { background: "var(--surface-2)", color: "var(--lilac)" };
   const chipTurq = { background: "rgba(135,231,223,0.08)", color: "var(--turquoise)" };
@@ -160,9 +184,12 @@ function MatchCard({ m }: { m: DualMatch }) {
         {m.venue && <div className="text-xs mt-0.5 muted">{m.venue}</div>}
         {hasMeta && (
           <div className="flex flex-wrap gap-1.5 mt-2">
-            {refName && <span className="chip" style={chipTurq}>⚖️ {refName}</span>}
-            {ref?.avgCards != null && <span className="chip" style={chipSurface}>🟨 {ref.avgCards}</span>}
-            {ref?.avgFouls && <span className="chip" style={chipSurface}>⚡ {ref.avgFouls}</span>}
+            {refName && (
+              <span className="chip" style={chipTurq}>
+                ⚖️ {refName}{ref?.avgCards != null ? ` · 🟨 ${ref.avgCards}` : ""}
+              </span>
+            )}
+            {refName && ref?.avgFouls && <span className="chip" style={chipSurface}>⚡ {ref.avgFouls}</span>}
             {oddsChips.map((o) => (
               <span key={o.label} className="chip font-mono" style={chipSurface}>{o.label}: {o.val.toFixed(2)}</span>
             ))}
@@ -174,9 +201,10 @@ function MatchCard({ m }: { m: DualMatch }) {
       </div>
 
       <div className="p-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className={`grid grid-cols-1 gap-3 ${cardCount >= 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
           {k && <SourceCol source="klement" pick={k} onOpen={() => setOpen("klement")} />}
           {c && <SourceCol source="claude" pick={c} onOpen={() => setOpen("claude")} />}
+          {sim && <SimCol sim={sim} onOpen={() => setOpen("simulaciones")} />}
         </div>
       </div>
 
