@@ -554,6 +554,190 @@ export const j10: DualJornada = {
   ],
 };
 
+export const j11: DualJornada = {
+  jornada: 11,
+  fecha: "2026-06-21",
+  tipo: "picks",
+  partidos: [
+    {
+      match: "España vs Arabia Saudí",
+      venue: "Mercedes-Benz (Atlanta, techo)",
+      kickoff: "2026-06-21T16:00:00-04:00",
+      referee: { name: "Raphael Claus", avgCards: "4.1", avgFouls: "24.0" },
+      odds: { home: 1.45, draw: 4.5, away: 7.0 },
+      simulaciones: { model: "Monte Carlo Poisson · 200k", win: { h: 62, d: 23, a: 15 }, over25: 43, btts: 41, hcap: "España -1.5: 35% | Arabia +1.5: 65%", xg: 2.4, topScore: "1-0", note: "España gana pero sin holgura; Arabia se cierra" },
+      preview: "España dejó escapar el debut (0-0 con Cabo Verde) y llega obligada; Arabia empató 1-1 con Uruguay, ordenada. Techo cerrado: sin factor calor.",
+      oddsNote: "España 1.45 / X 4.5 / Arabia 7.0. El valor no está en el -1.5.",
+      avoid: ["España -1.5 solo 35%: Arabia defiende bien", "Atlanta techo: sin calor", "Árbitro por confirmar"],
+      picks: {
+        klement: { market: "1X2", selection: "España", driver: "ranking #1 + Euro", options: [{ market: "1X2", selection: "España gana", confidence: "alta" }] },
+        claude: {
+          market: "1X2 + Goles",
+          selection: "España gana + Under 3.5",
+          note: "62% España, 57% Under. Jugador: Yamal/Oyarzabal tiros; España domina córners vs bloque saudí.",
+          options: [{ market: "1X2", selection: "España gana", confidence: "alta" }, { market: "Totales", selection: "Under 3.5", confidence: "media" }, { market: "Córners", selection: "España over", confidence: "media" }, { market: "Hándicap", selection: "Arabia +1.5", confidence: "media" }],
+          comboRecomendado: { legs: ["España gana", "España córners over"], nota: "Máx. 2 patas" },
+        },
+      },
+    },
+    {
+      match: "Bélgica vs Irán",
+      venue: "SoFi (LA, techo)",
+      kickoff: "2026-06-21T19:00:00-04:00",
+      referee: { name: "Darío Herrera", avgCards: "5.5", avgFouls: "25.1" },
+      odds: { home: 1.45, draw: 4.2, away: 6.5 },
+      simulaciones: { model: "Monte Carlo Poisson · 200k", win: { h: 55, d: 25, a: 20 }, over25: 44, btts: 46, hcap: "Bélgica -1.5: 30% | Irán +1.5: 70%", xg: 2.45, topScore: "1-0", note: "Bélgica gana; Irán defensivo aguanta" },
+      preview: "Bélgica empató 1-1 con Egipto; Irán empató 2-2 con Nueva Zelanda. Irán ordenado y físico. SoFi techo: sin calor.",
+      oddsNote: "Bélgica 1.45 / X 4.2 / Irán 6.5.",
+      avoid: ["Bélgica -1.5 solo 30%", "Irán mete falta → tarjetas", "Árbitro por confirmar"],
+      picks: {
+        klement: { market: "1X2", selection: "Bélgica", driver: "ranking + plantel", options: [{ market: "1X2", selection: "Bélgica gana", confidence: "media" }] },
+        claude: {
+          market: "1X2 + Goles",
+          selection: "Bélgica gana + Under 2.5",
+          note: "55% Bélgica, 56% Under. Jugador: Lukaku/Doku tiros; Bélgica córners; Irán acumula faltas.",
+          options: [{ market: "1X2", selection: "Bélgica gana", confidence: "media" }, { market: "Totales", selection: "Under 2.5", confidence: "media" }, { market: "Hándicap", selection: "Irán +1.5", confidence: "media" }, { market: "Córners", selection: "Bélgica over", confidence: "media" }],
+          comboRecomendado: { legs: ["Bélgica gana", "Under 3.5"], nota: "Máx. 2 patas" },
+        },
+      },
+    },
+    {
+      match: "Uruguay vs Cabo Verde",
+      venue: "Hard Rock (Miami)",
+      kickoff: "2026-06-21T22:00:00-04:00",
+      referee: { name: "Espen Eskås", avgCards: "3.4", avgFouls: "20.6" },
+      odds: { home: 1.5, draw: 3.9, away: 6.5 },
+      simulaciones: { model: "Monte Carlo Poisson · 200k", win: { h: 56, d: 26, a: 17 }, over25: 38, btts: 39, hcap: "Uruguay -1.5: 29% | Cabo Verde +1.5: 71%", xg: 2.2, topScore: "1-0", note: "Uruguay gana pero pocos goles; Under fuerte" },
+      preview: "Uruguay empató 1-1 con Arabia y Bielsa busca su 1.ª victoria; Cabo Verde sacó un 0-0 a España con un gran Vozinha. MIAMI con CALOR real → favorece el bajo ritmo y al bloque cabverdiano.",
+      oddsNote: "Uruguay 1.50 / X 3.9 / Cabo Verde 6.5.",
+      avoid: ["Calor de Miami + Vozinha en racha → pocos goles, NO fuerces over", "Uruguay -1.5 solo 29%", "Árbitro por confirmar"],
+      picks: {
+        klement: { market: "1X2", selection: "Uruguay", driver: "ranking + plantel", options: [{ market: "1X2", selection: "Uruguay gana", confidence: "media" }] },
+        claude: {
+          market: "Goles",
+          selection: "Under 2.5",
+          note: "62% Under, el más sólido del día. Jugador: Núñez tiros; Uruguay córners; calor frena el ritmo.",
+          options: [{ market: "Totales", selection: "Under 2.5", confidence: "alta" }, { market: "1X2", selection: "Uruguay gana", confidence: "media" }, { market: "Hándicap", selection: "Cabo Verde +1.5", confidence: "media" }, { market: "Córners", selection: "Uruguay over", confidence: "media" }],
+          comboRecomendado: { legs: ["Uruguay gana", "Under 2.5"], nota: "El par más coherente del Día 11" },
+        },
+      },
+    },
+    {
+      match: "Nueva Zelanda vs Egipto",
+      venue: "BC Place (Vancouver)",
+      kickoff: "2026-06-22T01:00:00-04:00",
+      referee: { name: "Omar Al Ali", avgCards: "3.7", avgFouls: "23.7" },
+      odds: { home: 3.8, draw: 3.2, away: 2.0 },
+      simulaciones: { model: "Monte Carlo Poisson · 200k", win: { h: 29, d: 28, a: 43 }, over25: 41, btts: 46, hcap: "Egipto -1.5: ~26% | NZ +1.5: ~88%", xg: 2.3, topScore: "1-1", note: "Egipto leve favorito; partido parejo y de pocos goles" },
+      preview: "Madrugada (01:00). Egipto empató 1-1 con Bélgica (buena imagen con Salah); Nueva Zelanda sacó un 2-2 a Irán. Ambos necesitan ganar. Vancouver templado: sin calor.",
+      oddsNote: "NZ 3.8 / X 3.2 / Egipto 2.0.",
+      avoid: ["Partido parejo y de necesidad → puede ser cerrado", "Baja convicción en el ganador", "Árbitro por confirmar"],
+      picks: {
+        klement: { market: "1X2", selection: "Egipto", driver: "ranking + Salah", options: [{ market: "1X2", selection: "Egipto gana", confidence: "media" }] },
+        claude: {
+          market: "Totales",
+          selection: "Under 2.5",
+          note: "59% Under, resultado abierto. Jugador: Salah es la amenaza; NZ corre mucho (físico).",
+          options: [{ market: "Totales", selection: "Under 2.5", confidence: "media" }, { market: "1X2", selection: "Egipto gana", confidence: "media" }, { market: "Doble oportunidad", selection: "Egipto o empate", confidence: "media" }, { market: "BTTS", selection: "No", confidence: "media" }],
+          comboRecomendado: { legs: ["Egipto o empate (DC)", "Under 2.5"], nota: "Baja convicción; máx. 2 patas" },
+        },
+      },
+    },
+  ],
+};
+
+export const j12: DualJornada = {
+  jornada: 12,
+  fecha: "2026-06-22",
+  tipo: "picks",
+  partidos: [
+    {
+      match: "Argentina vs Austria",
+      venue: "AT&T (Dallas, techo)",
+      kickoff: "2026-06-22T14:00:00-04:00",
+      referee: { name: "Amin Mohamed Omar", avgCards: "3.8", avgFouls: "17.0" },
+      odds: { home: 1.4, draw: 4.6, away: 7.5 },
+      simulaciones: { model: "Monte Carlo Poisson · 200k", win: { h: 63, d: 21, a: 16 }, over25: 55, btts: 51, hcap: "Argentina -1.5: 39% | Austria +1.5: 61%", xg: 2.9, topScore: "2-0", note: "Choque de líderes; el más goleador del día" },
+      preview: "Choque de punteros: Argentina goleó 3-0 a Argelia (hat-trick de Messi) y Austria 3-1 a Jordania. Dos equipos en forma y ofensivos. Dallas techo: sin calor. Ojo bajas argentinas (Dibu dedo fracturado, Julián Álvarez tobillo).",
+      oddsNote: "Argentina 1.40 / X 4.6 / Austria 7.5.",
+      avoid: ["Austria metió 3 a Jordania: el -1.5 argentino (39%) no es regalo", "Bajas en Argentina (Dibu, Julián Álvarez)", "Árbitro por confirmar"],
+      picks: {
+        klement: { market: "1X2", selection: "Argentina", driver: "campeón vigente + ranking", options: [{ market: "1X2", selection: "Argentina gana", confidence: "alta" }] },
+        claude: {
+          market: "1X2 + Goles",
+          selection: "Argentina gana + Over 2.5",
+          note: "63% Argentina, 55% Over, 51% BTTS (dos ataques). Jugador: Messi G/A (viene de hat-trick); Argentina córners.",
+          options: [{ market: "1X2", selection: "Argentina gana", confidence: "alta" }, { market: "Totales", selection: "Over 2.5", confidence: "media" }, { market: "Jugador", selection: "Messi marca o asiste", confidence: "media" }, { market: "BTTS", selection: "Sí", confidence: "media" }],
+          comboRecomendado: { legs: ["Argentina gana", "Over 2.5"], nota: "Máx. 2 patas" },
+        },
+      },
+    },
+    {
+      match: "Francia vs Irak",
+      venue: "Lincoln Financial (Philadelphia)",
+      kickoff: "2026-06-22T17:00:00-04:00",
+      referee: { name: "Drew Fischer", avgCards: "3.6", avgFouls: "23.4" },
+      odds: { home: 1.08, draw: 11.0, away: 26.0 },
+      simulaciones: { model: "Monte Carlo Poisson · 200k", win: { h: 84, d: 12, a: 4 }, over25: 59, btts: 34, hcap: "Francia -1.5: 62% | Irak +1.5: 38%", xg: 3.05, topScore: "2-0", note: "El favorito más claro; -1.5 sí aguanta" },
+      preview: "Francia goleó 3-1 a Senegal (doblete de Mbappé); Irak perdió su debut. Francia con la plantilla más profunda del torneo. Irak se replegará.",
+      oddsNote: "Francia 1.08 / X 11 / Irak 26. Ganar no paga; valor en hándicap y goles.",
+      avoid: ["1.08 sin valor: ir por -1.5 u over", "Irak se cierra → faltas", "Árbitro por confirmar"],
+      picks: {
+        klement: { market: "1X2", selection: "Francia", driver: "ranking + plantel", options: [{ market: "1X2", selection: "Francia gana", confidence: "alta" }] },
+        claude: {
+          market: "Hándicap + Goles",
+          selection: "Francia -1.5 + Over 2.5",
+          note: "84% gana, 62% -1.5, 59% Over. Jugador: Mbappé G/A (doblete a Senegal); Francia córners/tiros vs bloque iraquí.",
+          options: [{ market: "Hándicap", selection: "Francia -1.5", confidence: "alta" }, { market: "Totales", selection: "Over 2.5", confidence: "media" }, { market: "Jugador", selection: "Mbappé marca", confidence: "media" }, { market: "Córners", selection: "Francia over", confidence: "media" }],
+          comboRecomendado: { legs: ["Francia -1.5", "Over 2.5"], nota: "Máx. 2 patas" },
+        },
+      },
+    },
+    {
+      match: "Noruega vs Senegal",
+      venue: "MetLife (NJ)",
+      kickoff: "2026-06-22T20:00:00-04:00",
+      referee: { name: "Wilton Sampaio", avgCards: "4.8", avgFouls: "25.8" },
+      odds: { home: 2.3, draw: 3.3, away: 3.0 },
+      simulaciones: { model: "Monte Carlo Poisson · 200k", win: { h: 42, d: 25, a: 33 }, over25: 53, btts: 57, hcap: "Noruega -1.5: 21% | Senegal +1.5: 79%", xg: 2.81, topScore: "1-1", note: "EL partido abierto del Día 12: BTTS 57%, resultado parejo" },
+      preview: "Noruega ganó 2-1 a Irak (doblete de Haaland); Senegal cayó 1-3 con Francia pero compitió de igual a igual. Dos ataques potentes (Haaland vs la velocidad senegalesa). NJ templado: sin calor.",
+      oddsNote: "Noruega 2.30 / X 3.3 / Senegal 3.0. Senegal a 3.0 luce infravalorado.",
+      avoid: ["Resultado muy abierto: no te cases con el ganador", "No fuerces el Under aquí (es el partido de goles)", "Árbitro por confirmar"],
+      picks: {
+        klement: { market: "1X2", selection: "Noruega", driver: "ranking + Haaland", options: [{ market: "1X2", selection: "Noruega gana", confidence: "media" }] },
+        claude: {
+          market: "Goles",
+          selection: "BTTS Sí + Over 2.5",
+          note: "57% BTTS, 53% Over. Jugador: Haaland marca (doblete a Irak) y Sarr/Mané por Senegal; córners de ambos. Valor extra: Senegal o empate (DC) por la cuota.",
+          options: [{ market: "BTTS", selection: "Sí", confidence: "alta" }, { market: "Totales", selection: "Over 2.5", confidence: "media" }, { market: "Jugador", selection: "Haaland marca", confidence: "media" }, { market: "Doble oportunidad", selection: "Senegal o empate", confidence: "media" }],
+          comboRecomendado: { legs: ["BTTS Sí", "Over 2.5"], nota: "El combo más respaldado por el modelo" },
+        },
+      },
+    },
+    {
+      match: "Jordania vs Argelia",
+      venue: "Levi's (Santa Clara)",
+      kickoff: "2026-06-22T23:00:00-04:00",
+      referee: { name: "Slavko Vinčić", avgCards: "3.9", avgFouls: "25.5" },
+      odds: { home: 5.5, draw: 3.8, away: 1.57 },
+      simulaciones: { model: "Monte Carlo Poisson · 200k", win: { h: 23, d: 26, a: 51 }, over25: 43, btts: 46, hcap: "Argelia -1.5: ~24% | Jordania +1.5: ~93%", xg: 2.4, topScore: "0-1", note: "Argelia favorita; pocos goles" },
+      preview: "Ambos perdieron su debut (Jordania 1-3 Austria, Argelia 0-3 Argentina) → es ganar o casi eliminados. Argelia (Mahrez) tiene más nivel pero llega golpeada. Santa Clara templado: sin calor.",
+      oddsNote: "Jordania 5.5 / X 3.8 / Argelia 1.57.",
+      avoid: ["Argelia -1.5 flojo (~24%): Jordania no es goleable fácil", "Partido de necesidad → tenso", "Árbitro por confirmar"],
+      picks: {
+        klement: { market: "1X2", selection: "Argelia", driver: "ranking + Mahrez", options: [{ market: "1X2", selection: "Argelia gana", confidence: "media" }] },
+        claude: {
+          market: "1X2 + Goles",
+          selection: "Argelia gana + Under 2.5",
+          note: "51% Argelia, 57% Under. Jugador: Mahrez genera; Argelia córners; partido trabado por la presión.",
+          options: [{ market: "1X2", selection: "Argelia gana", confidence: "media" }, { market: "Totales", selection: "Under 2.5", confidence: "media" }, { market: "Doble oportunidad", selection: "Argelia o empate", confidence: "media" }, { market: "Córners", selection: "Argelia over", confidence: "media" }],
+          comboRecomendado: { legs: ["Argelia o empate (DC)", "Under 2.5"], nota: "Máx. 2 patas" },
+        },
+      },
+    },
+  ],
+};
+
 // Lista única de jornadas. El orden cronológico real lo resuelve TabPicks por
 // `fecha` (j9/j10 son 19–20 jun, posteriores a j15/j16 del 15–16 jun).
-export const DUAL_JORNADAS: DualJornada[] = [j1, j2, j3, j4, j9, j10, j15, j16];
+export const DUAL_JORNADAS: DualJornada[] = [j1, j2, j3, j4, j9, j10, j11, j12, j15, j16];
